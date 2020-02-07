@@ -50,6 +50,14 @@ var spb = {
       finalRegex.lastIndex = 0;
       node.setAttribute("textFound", searchFound?"true":"false")
       if (searchFound) {
+          nodeListList =  
+             [document.querySelectorAll('div'), // @ma
+              document.querySelectorAll('div>div')]
+          nodeListList.forEach( nodeList => {
+               nodeList.forEach( labelEl => {
+                 labelEl.removeAttribute("hidden")
+               })
+          })
           spb.visited.push(node)
           window.lastElementFound = node
       }
@@ -196,7 +204,7 @@ function doOpenZoom(e, isHistoric, showTimeControl, CallbackOnClose, strCloseLab
   let forwControl = "<span onClick='goForward()' style='font-family:monospace; color:blue; font-size:2.0rem'>"+forwNumber+"</span>"
   let sLabels="";
   if (e.attributes && e.attributes.labels) {
-    e.attributes.labels.value.split(",").forEach(label_i => {
+    e.attributes.labels.value.split(",").filter(e => !!e).forEach(label_i => {
         sLabels += renderLabel(label_i)
     })
   }
@@ -256,8 +264,9 @@ function onLabelClicked(e) {
 }
 
 function renderLabel(sLabel,selected) {
+  sLabel = sLabel.toLowerCase()
   return "<input class='labelButton' selected="+(!!spb.labelMapSelected[sLabel])+
-         " type='button' onClick='onLabelClicked(this)' value='"+sLabel+"' />" ;
+         " type='button' onClick='onLabelClicked(this)' value='"+sLabel+"' /><span labelcount>"+spb.labelMap[sLabel].length+"</span>" ;
 }
 
 
@@ -313,6 +322,7 @@ function createLabelIndex() {
     let csvAttributes = node.getAttribute("labels")
     if (!csvAttributes || !csvAttributes.trim()) continue;
     csvAttributes.split(",").forEach( label => {
+        if (!!! label) return
         label = label.toLowerCase()
         let list = getDomListForLabel(label)
             list.push(node)
@@ -467,6 +477,12 @@ function resetTextFoundAttr(bKeepHighlightedSearch) {
    *                                  (textFound==false is assigned to display none in css)
    * bKeepHighlightedSearch = false => Reset all (remove any textFound attribute)
    */
+  [document.querySelectorAll('body>div'),
+   document.querySelectorAll('body>div>div')].forEach(nodeList => {
+      nodeList.forEach(node => {  // @ma
+          node.removeAttribute("hidden")
+      })
+   })
   var removeNodeList = document.querySelectorAll('*[textFound]');
   if (removeNodeList.length == 0) return; // Nothing to do.
   for (idx in removeNodeList) {
@@ -508,6 +524,12 @@ function highlightSearch(query) {
 
   if ((!isAnyLabelSelected()) && isEmptyQuery) { return false; /* Nothing to do */ }
 
+  [document.querySelectorAll('body>div'),
+   document.querySelectorAll('body>div>div')].forEach(nodeList => {
+      nodeList.forEach(node => {  // @ma
+          node.setAttribute("hidden", "true")
+      })
+   })
   // If some label has been selected then choose only those with matching labels
   document.querySelectorAll('*[zoom]').forEach(node => { 
       node.setAttribute("textFound", "false")
