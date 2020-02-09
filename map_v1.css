@@ -100,8 +100,8 @@ math[zoom]{ padding:1.1em 0 1.1em 0; }
 pre > b { }
 
 *[cite]         { font-style: italic; }
-*[TODO]         { color:red; font-weight: bold; }
-*[TODO]:before  { content: "T:"; }
+*[TODO]:before  { content: "◔ "; }
+
 *[zoom] { font-size:0.0006rem; }
 img[zoom],svg[zoom]{ max-width:8rem; max-height:8rem;}
 #zoomDiv svg[zoom]{ max-width:none; max-height:none;}
