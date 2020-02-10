@@ -1,0 +1,202 @@
+<html>
+<head>
+<html>
+   <meta charset="UTF-8">
+   <title>HelpMan to the rescue!</title><!-- ignore -->
+<link rel="stylesheet" type="text/css" href="/IT_notes/map_v1.css" />
+<style>
+h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; 
+}
+body { 
+  max-width: 100%;
+  margin-left:1em;
+  margin-right:1em;
+  padding:0;
+}
+
+ul {
+  padding: 1em;
+}
+
+</style>
+
+<script>
+function generate_uuidv4() {
+  let UUID = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+  document.getElementById("id_uuid_display").value=UUID;
+
+}
+</script>
+</head>
+<body>
+    <br/>
+    <h1><img src="./helpman.icon.svg" height="60em;" vertical-align="bottom;" />HelpMan to the rescue!!!</h1> 
+
+
+<h2>Basic Ussage</h2> 
+  &nbsp;&nbsp;<b>double-click</b> (mouse) or <b>long-press</b> (touch-screen) on a cell to zoom into highlighted content</b>
+
+<h2>Searching for content</h2> 
+  <ol>
+  <li>Click on the "telescopic sight" icon <img id="idLabelsFilter" src="/IT_notes/labelIcon.svg" /> to open the search/filter menu.<br/>
+      Alternatively you can press the keyboard <b>shortcuts "S" or "/"</b>. 
+  </li>
+  <li>Search for matching text in any zoomable element by filling the regex text input.<br/>
+      The "single-line" checkbox can be cheked to search only matching text in a single-line and
+      the "case-match" checkbox to match only if Upper/lower case match.<br/>
+      NOTE: user-input is interpreted as a regular expresion. <br/>
+      Advanced users can profit from this feature to create powerful queries<br/>
+      Normal users can ignore this feature or, if curious, learn about the magic of regular expression 
+      by clicking 
+      <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">[here]</a>.
+  </li>
+  <li>Optionally click on any topic to filter out/in any non/related topics. The AND/OR checkbox let's
+      to choose whether content must contain <b>ALL</b> or <b>ANY</b> selected topic.<br/>
+      Only zoomable contant that has been previously tagged or labeled with matching topics will be searched for.
+  </li>
+  <li>Finally click on the "Search Now!" button (or Press "Enter" key) to execture the search</li> 
+  <li>Matching zoomable content will be highlighted while non-matching zoomable elements will be
+      hidden by default.</li> 
+  <li>Browse visually around the highlighted content to see if the context matches with the search.</li> 
+  <li>Press the <b>"ESC" key shortcut</b> in your keyboard or the <code>[show all]</code> link
+      to show again all cells and their relation in the context of the matched content (the "neighborhood"
+      of matching elements)</li>
+  <li>Other shortcuts:
+      <div style="font-family: monospace">
+          <b>"z"</b> (lower-case z): Orbit/Zoom-out<br>
+          <b>">"</b> (Upper-case z): macro/Zoom-in</br>
+      </div>
+  </li>
+  </ol>
+NOTE: When just a single zoomable element match the search its content will automatically be zoomed-in<br/>
+    This behaviour allows to create external links to you page that automatically opens the 
+    desired cell/content using a link similar to: 
+    <a target="_new" href="./DevOps/linux_administration_summary.html?query=96493a84-bac4-49a0-b553-a8fee7310c1c">
+        [this example link]</a><br/>
+    Otherwise the different zoomable elements will be highlighted and the user will choose which one to zoom-in.<br/>
+    Once you click  on one of the the left/right arrows icons can be clicked to move to previous/next search match,
+    or you can close the zoom and click on another zoomable element.
+
+<h2>Sharing content</h2>
+<ul> 
+    <li>The full page book can be shared as a normal web page by sharing its URL (Universal Resource Locator)</li>
+    <li>If you want to put the attention or highlight some particular topic inside the book,add the
+        query parameter "<b>topics=</b>topic1,topic2,..". For example:<br/>
+        Share the linux administration page highlighting topics related to <code>audit_user</code>:<br/>
+        <a target="_new" href="./DevOps/linux_administration_summary.html?topics=audit_user">./DevOps/linux_administration_summary.html?topics=audit_user</a><br/>
+        Share the same page, highlight other topic (<code>learn_x_in_y_min</code>):<br/>
+        <a target="_new" href="./DevOps/linux_administration_summary.html?topics=learn_x_in_y_min">./DevOps/linux_administration_summary.html?topics=learn_x_in_y_min</a>
+    </li>
+    <li>The URL query parameter can be used to share a text-search. For example:<br/>
+        Share the linux administration page highlighting any cell including the word "disk":
+        <a target="_new" href="./DevOps/linux_administration_summary.html?query=disk">./DevOps/linux_administration_summary.html?query=disk</a><br/>
+        Or containing the word "disk" but restricting to the topic <code>audit_user</code>:
+        <a target="_new" href="./DevOps/linux_administration_summary.html?query=disk&topics=audit_user">./DevOps/linux_administration_summary.html?query=disk&amp;topics=audit_user</a><br/>
+    </li>
+    <li>If you want to show the search Menu add the URL parameter showSearchMenu. For Example:<br/>
+        <a target="_new" href="./DevOps/linux_administration_summary.html?showSearchMenu">./DevOps/linux_administration_summary.html?showSearchMenu</a> <br/> or a search with text and topics pre-selected<br/>
+        <a target="_new" href="./DevOps/linux_administration_summary.html?showSearchMenu&query=ssh&topics=audit_user">
+            ./DevOps/linux_administration_summary.html?showSearchMenu&query=ssh&topics=audit_user</a>
+    </li>
+</ul>
+ 
+<h2>Editing the content</h2> 
+<ul> 
+<li>Content is standard html</li> 
+<li> Use <a href="https://github.com/singlepagebookproject/IT_notes/issues">GitHub pull request</a> to request occasional changes.<br/></li> 
+<li> Become a member of <a href="https://github.com/singlepagebookproject/">The Single-Page-Book Project@GitHub</a> to add you own IT_notes page books or publish in your prefered repository</li>
+<li> Random UUID can be generated (amongst others) by:
+    <a href="#" onClick="generate_uuidv4()"> clicking here </a></br>
+    <input type=text id="id_uuid_display" size="40rem"/><br/>
+    The GENERATED UUID can be placed "anywhere" and used to create safe links
+    to concrete "cells" that will work with regular expression search.<br/>
+    This allow to create and share inmutable URLs similar to
+    <code>http://..../map.html?query=GENERATED_UUID</code> pointing to some
+    cell or region of cells inside the map.
+</li>
+</ul>
+
+<h2>The Lord of Text is back to claim his Kindom!</h2>
+- To help the Lord of Text fight back the badness of Power Points 
+  a curated list or weapons follows:
+<ul>
+  <li>
+    template txt figures that will work by just doing a Copy&amp;Paste
+  <pre style="float:none;">
+  <b>Common Arrows</b>         <b>Less/Greater-than</b>
+  ← →  ↑ ↓  ⇿           <b>html-friendly replacements</b>
+                        ˂  ˃  ⅋
+                        &lt;  &gt;  &amp; replacements
+                        javascript will convert them back
+                        at display time to avoid problems
+                        with copy&amp;paste in other programs
+
+  <b>Boxes</b>                                      <b>Trees</b> 
+  ┌─────┬─────┐ ┌───┐  ┌────┐  ┌───┬───┬───┐ ├─ level1.1     
+  │     │     │ │   │  │    │  │   │   │   │ │  │            
+  │     │     │ │   │  ├────┤  │   │   │   │ │  ├─ level2.1  
+  ├─────┼─────┤ │   │  │    │  │   │   │   │ │  │   │        
+  │     │     │ └───┘  ├────┤  │   │   │   │ │  │   └─ level3
+  │     │     │        │    │  └───┴───┴───┘ │  │            
+  └─────┴─────┘        └────┘                │  └─ level2.2  
+                                             │               
+                                             └─ level1.2     
+  
+  ┌────────────────────────┬─┐    Pointing hands: 
+  │*TEMPLATE  FOR TOPICS  *│ │    ☚ ☛
+  ├────────────────────────┘ │
+  │                          │
+  │                          │
+  │                          │
+  └──────────────────────────┘
+  
+  <b>Other useful symbols:</b>                        
+   https://en.wikipedia.org/wiki/Arrows_(Unicode_block)  
+      0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F     
+  U+219x  ←   ↑   →   ↓   ↔   ↕   ↖   ↗   ↘   ↙   ↚   ↛   ↜   ↝   ↞   ↟ 
+  U+21Ax  ↠   ↡   ↢   ↣   ↤   ↥   ↦   ↧   ↨   ↩   ↪   ↫   ↬   ↭   ↮   ↯ 
+  U+21Bx  ↰   ↱   ↲   ↳   ↴   ↵   ↶   ↷   ↸   ↹   ↺   ↻   ↼   ↽   ↾   ↿ 
+  U+21Cx  ⇀   ⇁   ⇂   ⇃   ⇄   ⇅   ⇆   ⇇   ⇈   ⇉   ⇊   ⇋   ⇌   ⇍   ⇎   ⇏ 
+  U+21Dx  ⇐   ⇑   ⇒   ⇓   ⇔   ⇕   ⇖   ⇗   ⇘   ⇙   ⇚   ⇛   ⇜   ⇝   ⇞   ⇟ 
+  U+21Ex  ⇠   ⇡   ⇢   ⇣   ⇤   ⇥   ⇦   ⇧   ⇨   ⇩   ⇪   ⇫   ⇬   ⇭   ⇮   ⇯ 
+  U+21Fx  ⇰   ⇱   ⇲   ⇳   ⇴   ⇵   ⇶   ⇷   ⇸   ⇹   ⇺   ⇻   ⇼   ⇽   ⇾   ⇿ 
+  </pre>
+  If your system has basic unix utilities instaled (Linux, Mac, BSD, or
+  Windows Git Bash), you can use the <a href="./beatify.sh"><code>beautify.sh</code></a>
+  script as well. This scripts will also fix problem with conflictive html 
+  characterers ( &lt; &gt; , &amp; ) replacing with equivalent but 
+  non-conflictive ones
+  <li><a href="http://asciiflow.com/">Ascii Flow online diagram editor</a> easify box diagrams</li>
+  <li><a href="http://www.figlet.org/">figlet.org</a>: Create large ascii letters</li>
+  <li><a href="https://www.planttext.com/">PlantText</a>: Easy creation of UML sequence diagrams</li>
+  <li><a href="https://htmleditor.io">htmleditor.io</a> light-weigth online html editor</li>
+  <li>editors with block/column edit mode and macro-support that will walk with you in your feat:<br/>
+      <ul>
+        <li>Vim: (Love him and it will love you for the rest of your life!)</li>
+        <li>UltraEdit</li>
+        <li>gedit    </li>
+        <li>Notepad++</li>
+        <li>Eclipse  </li>
+        <li>...  </li>
+      </ul>
+  </li>
+</ul>
+
+
+<h2>Provide Feedback:</h2>
+<ul>
+  <li>If you find some bug, or something difficult to use, or a missing feature comes to your mind,
+   please, follow <a target="_blank" href="https://github.com/singlepagebookproject/IT_notes/issues">[this link]</a> 
+   to create a new issue.
+  </li>
+  <li>If you want to actively contribute with new features or add new recipes or IT_notes, please,
+      clone the <a target="_blank" href="https://github.com/singlepagebookproject/IT_notes">https://github.com/singlepagebookproject/IT_notes</a> 
+      repository, edit at will and submit a pull request.
+  </li>
+</ul>
+</ul>
+<body>
+</html>
