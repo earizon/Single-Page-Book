@@ -33,6 +33,9 @@ var spb = {
            doCloseZoom()
       }
     }
+    if (e.key === "PageDown") { goForward(); return }
+    if (e.key === "PageUp"  ) { goBack   (); return }
+
     if ( (e.code === "ShiftLeft" || e.code === "KeyS") ) {
       if (spb.zoomStatus === 2) return
       doExtraOptions()
@@ -50,9 +53,10 @@ var spb = {
       finalRegex.lastIndex = 0;
       node.setAttribute("textFound", searchFound?"true":"false")
       if (searchFound) {
-          nodeListList =  
-             [document.querySelectorAll('div'), // @ma
-              document.querySelectorAll('div>div')]
+          nodeListList =  (node.parentNode.parentNode.tagName != "BODY")
+            ? [node.parentNode.parentNode.querySelectorAll(':not(div)[title]'),
+               node.parentNode.querySelectorAll('[title]')]
+            : [node.parentNode.querySelectorAll('[title]')]
           nodeListList.forEach( nodeList => {
                nodeList.forEach( labelEl => {
                  labelEl.removeAttribute("hidden")
@@ -204,7 +208,8 @@ function doOpenZoom(e, isHistoric, showTimeControl, CallbackOnClose, strCloseLab
   let forwControl = "<span onClick='goForward()' style='font-family:monospace; color:blue; font-size:2.0rem'>"+forwNumber+"</span>"
   let sLabels="";
   if (e.attributes && e.attributes.labels) {
-    e.attributes.labels.value.split(",").filter(e => !!e).forEach(label_i => {
+      /* list -> Set -> array leaves non-repeated/unique elements*/
+    Array.from(new Set(e.attributes.labels.value.split(","))).filter(e => !!e).forEach(label_i => {
         sLabels += renderLabel(label_i)
     })
   }
@@ -321,13 +326,21 @@ function createLabelIndex() {
     if (!node.getAttribute    ) continue
     let csvAttributes = node.getAttribute("labels")
     if (!csvAttributes || !csvAttributes.trim()) continue;
+    labelCount = 0
     csvAttributes.split(",").forEach( label => {
         if (!!! label) return
         label = label.toLowerCase()
         let list = getDomListForLabel(label)
             list.push(node)
         spb.labelMap[label] = list
+        labelCount++
     })
+    if (labelCount>0) {
+      var countEl = document.createElement('div');
+          countEl.setAttribute("tagCount", "")
+          countEl.innerHTML = labelCount
+      node.insertBefore(countEl,node.children[0])
+    }
   }
   // console.dir(spb.labelMap)
 }
@@ -477,8 +490,8 @@ function resetTextFoundAttr(bKeepHighlightedSearch) {
    *                                  (textFound==false is assigned to display none in css)
    * bKeepHighlightedSearch = false => Reset all (remove any textFound attribute)
    */
-  [document.querySelectorAll('body>div'),
-   document.querySelectorAll('body>div>div')].forEach(nodeList => {
+  [document.querySelectorAll('body>div>[title]'),
+   document.querySelectorAll('body>div>div[title]')].forEach(nodeList => {
       nodeList.forEach(node => {  // @ma
           node.removeAttribute("hidden")
       })
@@ -524,8 +537,8 @@ function highlightSearch(query) {
 
   if ((!isAnyLabelSelected()) && isEmptyQuery) { return false; /* Nothing to do */ }
 
-  [document.querySelectorAll('body>div'),
-   document.querySelectorAll('body>div>div')].forEach(nodeList => {
+  [document.querySelectorAll('body>div>[title]'),
+   document.querySelectorAll('body>div>div>[title]')].forEach(nodeList => {
       nodeList.forEach(node => {  // @ma
           node.setAttribute("hidden", "true")
       })
