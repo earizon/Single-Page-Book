@@ -256,7 +256,7 @@ span[labelcount] {
 
 *[tagCount] {
   font-size:0.8rem;
-  position: relative; float: inline-end;
+  position: relative; float: right;
   top: 0.0em; right: -0.6em; 
   outline: 1px solid gray;  background-color:white;
   margin:0; padding:0; 
