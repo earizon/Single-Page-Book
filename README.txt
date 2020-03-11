@@ -1,12 +1,14 @@
-Next files is all that needed to create a new Single Page Book Project:
-- map_template.html
-- map_v1.css
-- map_v1.js
 
+***************
+* Micro-HowTo *
+***************
+- Next files is all that needed to create a new Single Page Book Project:
+  - map_template.html
+  - map_v1.css
+  - map_v1.js
 ************
 * Features *
 ************
-
   - The full notes-database is just a single human-readable HTML file. 
     No need for local or server apps, a modern (2016+) web browser,
     and a text/html editor is all that needed. 
@@ -62,3 +64,9 @@ Next files is all that needed to create a new Single Page Book Project:
 * Planned (Far future  *
 ************************
 - IA help system to automatically tag notes by topics.
+
+***********
+* Apropos *
+***********
+  - This is a hobbie project with zero commercial support.
+  - If you are interested on its development  don't forget to star it on Github.
