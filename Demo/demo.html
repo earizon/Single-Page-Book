@@ -2492,20 +2492,19 @@ to navigate to the next/previous search result.<br/>
   <h3>STEP 2</h1>
    Start to add content inside standard html blocks<br/>
 <code>
-   &lt;pre&gt;<br/>
-      Aenean posuere, tortor sed cursus...<br/>
-   &lt;/pre&gt;
+ ┌ &lt;pre&gt;<br/>
+ │    Aenean posuere, tortor sed cursus...<br/>
+ └ &lt;/pre&gt;
 </code>
   </td>
   <td>
   <h3>STEP 3</h1>
   add the attribute <span style="color:#080">"zoom"</span> to the block like:<br/>
 <pre>
-┌───────────────────────────────
-│&lt;pre <span style="color:#080">zoom</span>&gt;
-│  Aenean posuere, tortor sed cursus...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌ &lt;pre <span style="color:#080">zoom</span>&gt;
+  │   Aenean posuere, tortor sed cursus...
+  │   ...
+  └ &lt;/pre&gt;
 </pre>
   </td>
   </tr>
@@ -2513,17 +2512,16 @@ to navigate to the next/previous search result.<br/>
   <td>
   <h3>STEP 4</h1>
   - Now tag your content with all the labels you want.<br/>
-  - You can think of a label as a generic "topic" that englobes related content<br>
+  - labels help to group "topics" of related content by 
+    cross-cutting concerns.<br>
   - Adding Labels will simplify the search of content and also
     will allow to dynamically see mind-maps of related content. <br/>
-  - Click on the "Labels" icon now to see how it works in this demo <br/>
-  (The icon on the top of the page, to the left of the (regex)search)<br/>
+  - Click on the "target" icon (top-left corner) now to see how it
+     works in this demo <br/>
 <pre>
-┌──────────────────────────────
-│&lt;pre zoom <span style="color:#080">labels="topic1,topic2,..."</span> &gt;
-│  Aenean posuere, tortor sed cursus...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌&lt;pre zoom <span style="color:#080">labels="topic1,topic2,..."</span> &gt;
+  │  Aenean posuere, tortor sed cursus...
+  └&lt;/pre&gt;
 </pre>
   </td>
   <td>
@@ -2540,20 +2538,17 @@ to navigate to the next/previous search result.<br/>
         <span style="color:#A0A">xsmall</span> (or <span style="color:#0A0">title</span>)
         attribute:<br/>
 <pre>
-┌──────────────────────────────
-│&lt;pre <span style="color:#080">zoom</span>&gt;
-│&lt;span <span style="color:#A0A">xsmall</span>&gt;visible hint&lt;/span&gt;
-│  Aenean posuere, tortor sed cursus...
-│   ...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌  &lt;pre <span style="color:#080">zoom</span>&gt;
+  │  &lt;span <span style="color:#A0A">xsmall</span>&gt;visible hint&lt;/span&gt;
+  │    Aenean posuere, tortor sed cursus...
+  │     ...
+  └  &lt;/pre&gt;
 </pre><br/>
      
   </td>
   <td>
   <h3>STEP 6: Place content in shelfs</h1>
-      Most probably you want to order your notes grouped in
-      orizontal or vertical selfs.<br/>
+      Most probably you want to order your notes grouped in horizontal or vertical shelfs.<br/>
       ALl that needed to <span style="color:brown;">create a shelf</span> for
        your "zoom"able content is to place it inside <br/>
        <code style="color:brown;">&lt;div group&gt;...&lt;/div&gt;</code> (horizontal shelf) <br/>
@@ -2565,8 +2560,6 @@ to navigate to the next/previous search result.<br/>
   </tr>
 
   </table>
-
-
 
 <h1>Learn more...</h1>
 · Visit <a href="../index.html">˃˃ this page ˂˂</a> for further information about Single Page Books design.<br/><br/>
