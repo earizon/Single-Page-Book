@@ -6,6 +6,7 @@
   - map_template.html
   - map_v1.css
   - map_v1.js
+
 ************
 * Features *
 ************
@@ -64,6 +65,14 @@
 * Planned (Far future  *
 ************************
 - IA help system to automatically tag notes by topics.
+
+
+********
+* WARN *
+********
+- Most web pages and applications try to look like a beautiful Apple Store.
+- This project is not about beautiful stores, it's about warehouses to 
+  place, order, move and retrieve content fast.
 
 ***********
 * Apropos *
