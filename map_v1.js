@@ -304,9 +304,9 @@ function getSearchOptions() {
       + "<input type='checkbox' "+(spb.labelANDMode?"checked":"")+" onClick='switchANDORSearch()'><span id='idLabelSearchAndMode' mono>"+spb.labelAndOrText[spb.labelANDMode]+"</span>"
       + "<br/>\n"
       + "<div>\n"
+      cleanUUIDSelected() 
       Object.keys(spb.labelMap).sort()
          .filter(label => {  
-             spb.labelMapSelected[label] = false // since label will be hidden, disable
              return !label.toLowerCase().startsWith("uuid:")
          })
          .forEach(label_i => {
@@ -369,7 +369,6 @@ function onPageLoaded() {
   var searchDiv = document.createElement('div');
       searchDiv.setAttribute("id", "upper_bar")
       searchDiv.innerHTML = ''
-    
    + '<img id="idLabelsFilter" class="noprint" src="/labelIcon.svg" />'
    + '&nbsp;<span blue class="noprint" id="unhide" hidden style="cursor:ns-resize" onClick="resetTextFoundAttr(true)">[unhide]</span>'
    + '&nbsp;<a href="../help.html" class="noprint" style="cursor:help" target="_blank">[HelpMan]</a>'
@@ -513,7 +512,7 @@ function resetTextFoundAttr(bKeepHighlightedSearch) {
    */
   [document.querySelectorAll('body>div>[title]'),
    document.querySelectorAll('body>div>div[title]')].forEach(nodeList => {
-      nodeList.forEach(node => {  // @ma
+      nodeList.forEach(node => {
           node.removeAttribute("hidden")
       })
    })
@@ -560,7 +559,7 @@ function highlightSearch(query) {
 
   [document.querySelectorAll('body>div>[title]'),
    document.querySelectorAll('body>div>div>[title]')].forEach(nodeList => {
-      nodeList.forEach(node => {  // @ma
+      nodeList.forEach(node => {
           node.setAttribute("hidden", "true")
       })
    })
@@ -617,8 +616,8 @@ function highlightSearch(query) {
 function cleanUUIDSelected() {
   let label_l=Object.keys(spb.labelMapSelected)
   for (idx=0; idx<label_l.length; idx++) {
-    label = label_l[idx];
-    if (label.toLowerCase().startsWidth("uuid:")) {
+    label = label_l[idx] != null ? label_l[idx] : "";
+    if (label.toLowerCase().startsWith("uuid:")) {
       spb.labelMapSelected[label] = false 
     }
   }
