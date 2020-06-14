@@ -369,7 +369,8 @@ function onPageLoaded() {
   var searchDiv = document.createElement('div');
       searchDiv.setAttribute("id", "upper_bar")
       searchDiv.innerHTML = ''
-   + '<img id="idLabelsFilter" class="noprint" src="/labelIcon.svg" />'
+   + '<img id="idLabelsFilter" class="noprint" src="/labelIcon.svg"  '
+   +   ' onerror="src = \'https://singlepagebookproject.github.io/SPB/labelIcon.svg\';" />'
    + '&nbsp;<span blue class="noprint" id="unhide" hidden style="cursor:ns-resize" onClick="resetTextFoundAttr(true)">[unhide]</span>'
    + '&nbsp;<a href="../help.html" class="noprint" style="cursor:help" target="_blank">[HelpMan]</a>'
    + '&nbsp;<span onClick="spbQuickPrint()" blue>[Print]</span>'
