@@ -250,13 +250,14 @@ function doExtraOptions() {
     domInputQuery = document.getElementById("inputQuery")
     domInputQuery.addEventListener("change",  updateRegexQuery )
     domInputQuery.focus()
-
 }
+
 function onLabelClicked(e) {
     let label = e.value;
     if (!e.attributes) {
          e.attributes = { selected : { value : "false" } }
     }
+
     if (e.attributes.selected.value == "false") {
         e.attributes.selected.value = "true"
         spb.labelMapSelected[label] = true
@@ -304,7 +305,10 @@ function getSearchOptions() {
       + "<br/>\n"
       + "<div>\n"
       Object.keys(spb.labelMap).sort()
-         .filter(e => {  console.log(e); return !e.toLowerCase().startsWith("uuid:") })
+         .filter(label => {  
+             spb.labelMapSelected[label] = false // since label will be hidden, disable
+             return !label.toLowerCase().startsWith("uuid:")
+         })
          .forEach(label_i => {
           result += renderLabel(label_i)
       })
@@ -358,7 +362,7 @@ function spbQuickPrint() {
 }
 
 function onPageLoaded() {
-  spb.cssRules = document.styleSheets[0]['cssRules'][0].cssRules;
+  spb.cssRules = document.styleSheets[0]['cssRules']; // [0].cssRules;
   var zoomDiv = document.createElement('div');
       zoomDiv.setAttribute("id", "zoomDiv")
   document.body.insertBefore(zoomDiv,document.body.children[0])
@@ -468,7 +472,8 @@ function onPageLoaded() {
 
   createLabelIndex()
 
-  let csvLabels = getParameterByName("topics").toLowerCase()
+  let csvLabels = getParameterByName("topics") || ""
+      csvLabels = csvLabels.toLowerCase()
   label_l = (!!csvLabels) ? csvLabels.split(",") : []
   label_l.forEach(label => {
       onLabelClicked({value : label});
@@ -605,5 +610,17 @@ function highlightSearch(query) {
       spb.zoomStatus = 1
   }
   unhideButton.removeAttribute("hidden","");
+  cleanUUIDSelected() 
   return false // avoid event propagation
+}
+
+function cleanUUIDSelected() {
+  let label_l=Object.keys(spb.labelMapSelected)
+  for (idx=0; idx<label_l.length; idx++) {
+    label = label_l[idx];
+    if (label.toLowerCase().startsWidth("uuid:")) {
+      spb.labelMapSelected[label] = false 
+    }
+  }
+
 }
