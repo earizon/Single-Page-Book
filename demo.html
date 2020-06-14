@@ -10,7 +10,7 @@
 <body>
 <h2>Welcome to the single-page-book demo and how-to</h2>
 <h3>· Double-Click on a cell (long-press on mobiles) to zoom in<br/>
-    · Click the topic button (icon <img id="idLabelsFilter" src="/IT_notes/labelIcon.svg" /> up left) to filter by topic<br/>
+    · Click the topic button (icon <img id="idLabelsFilter" src="../labelIcon.svg" /> up left) to filter by topic<br/>
     · Click "Escape" key (or [show all] link) to show highlighted matches in context<br/>
 
 </h3>
@@ -89,7 +89,229 @@ UUID: a4c55453-c75d-4faf-91aa-ae437ef80e97
   └──────────────────────────────────────────────────────────────────────────┘
 </pre>
 
-<pre zoom labels="tutorial,finances">
+<pre zoom labels="diagram,tutorial,tool,troubleshooting,uuid:44f7447a-dda7-4949-8e9e-4c4d7eb1d9d1">
+<span xsmall>Troubleshooting Diagram</span>
+REF: @[https://learnk8s.io/]
+
+$º$ kubectl get pods º
+    └─────┬────────┘
+QºQ: Is there any pending Pod?º
+  └─────────┬────────────────┘
+  ┌─────────┘
+  ├ YES → $º$ kubectl describe º←QºQ: Is the cluster full?º
+  │       $º     pod $pod_name º   └────────┬────────────┘
+  │           ┌─────────────────────────────┘
+  │           ├ NO  →QºQ: Are you hitting ResourceQuotaLimits?º
+  │           │        └────────────────────┬────────────────┘
+  │           │       ┌─────────────────────┘
+  │           │       ├ NO  →QºQ: Are you mounting a PENDINGº
+  │           │       │      Qº   PersistentVolumeClaim?º
+  │           │       │        └───────────┬────────────────┘
+  │           │       │       ┌────────────┘
+  │           │       │       ├ NO  →$º$ kubectl get pods º←QºQ: Is the Pod assignedº
+  │           │       │       │      $º    -o wide        º Qº   to the Node?º
+  │           │       │       │                               └────┬───────────────┘
+  │           │       │       │      ┌─────────────────────────────┘
+  │           │       │       │      ├ YES →RºThere is an issue with the Kubeletº
+  │           │       │       │      │
+  │           │       │       │      └ NO  →RºThere is an issue with the Schedulerº
+  │           │       │       │
+  │           │       │       └ YES →BºFix the PersistentVolumeClaimº
+  │           │       │
+  │           │       └ YES →BºRelax Quota Limitsº
+  │           │
+  │           └ YES →BºProvision a bigger clusterº
+  │
+  └ NO  →QºQ: Are the Pods Running?º
+           └──────┬───────────────┘
+  ┌───────────────┘
+  ├ NO  → $º$ kubectl logs $pod_name º←QºQ: Can you see the logsº
+  │        ↑                           Qº   for the App?º
+  │        │                             └─────────┬───────────┘
+  │        │  ┌────────────────────────────────────┘
+  │        │  ├ Yes →BºFix the issue in the Appº
+  │        │  └ NO  →QºQ: Did the container died too Quickly?º
+  │        │           └──────┬─────────────────────────────┘
+  │        │      ┌───────────┘
+  │        │      ├ NO  → $º$ kubectl describe º←QºQ: Is the Pod in statusº
+  │        │      │       $º    pod $pod_name  º Qº   ImagePullBackOff?  º
+  │        │      │                                └──┬──────────────────┘
+  │        │      │  ┌────────────────────────────────┘
+  │        │      │  ├ NO  →QºQ: Is the Pode Status CrashLoopBackOff?º
+  │        │      │  │        └─────────┬─────────────────────────┘
+  │        │      │  │ ┌────────────────┘
+  │        │      │  │ ├ NO →QºQ: Is the Pod status RunContainerError?º
+  │        │      │  │ │       └─────────┬───────────────────────────┘
+  │        │      │  │ │ ┌───────────────┘
+  │        │      │  │ │ ├ NO  →BºConsult StackOverflowº
+  │        │      │  │ │ │
+  │        │      │  │ │ └ YES →BºThe issue is likely to be withº
+  │        │      │  │ │        Bºmounting volumesº
+  │        │      │  │ │
+  │        │      │  │ └ YES →QºQ: Did you inspect the logs and fixedº
+  │        │      │  │        Qº   the crashes?º
+  │        │      │  │          └─────────┬─────────────────────────┘
+  │        │      │  │    ┌───────────────┘
+  │        │      │  │    ├ NO  →BºFix the app crahsesº
+  │        │      │  │    │
+  │        │      │  │    └ YES →QºQ: Did you forget the 'CMD' instructionº
+  │        │      │  │           Qº   in the Dockerfile?                  º
+  │        │      │  │             └──────────┬──────────────────────────┘
+  │        │      │  │       ┌────────────────┘
+  │        │      │  │       ├ YES →BºFix the Dockerfileº
+  │        │      │  │       │
+  │        │      │  │       └ NO  →QºQ: Is the Pod restarting frequently?º
+  │        │      │  │              Qº   Cycling between Running and      º
+  │        │      │  │              Qº   CrashLoopBackoff?º
+  │        │      │  │                └──────────┬────────────────────────┘
+  │        │      │  │        ┌──────────────────┘
+  │        │      │  │        ├ YES →BºFix the liveness probeº
+  │        │      │  │        │
+  │        │      │  │        └ NO  →RºUnknown Stateº
+  │        │      │  │
+  │        │      │  └ YES →QºQ: Is the name of the image correct?º
+  │        │      │           └────┬─────────────────────────────┘
+  │        │      │   ┌────────────┘
+  │        │      │   ├ NO  →BºFix the image nameº
+  │        │      │   │
+  │        │      │   └ YES →QºQ: Is the image tag valid?º
+  │        │      │          Qº   Does it exists?º
+  │        │      │            └──┬──────────────────────┘
+  │        │      │   ┌───────────┘
+  │        │      │   ├ NO  →BºFix the tagº
+  │        │      │   │
+  │        │      │   └ YES →QºQ: Are you pulling images from aº
+  │        │      │          Qº   private registry?º
+  │        │      │            └─────────┬────────────────────┘
+  │        │      │    ┌─────────────────┘
+  │        │      │    ├ NO  →BºThe Issue could be with CRI|Kubeletº
+  │        │      │    │
+  │        │      │    └ YES →BºConfigure pulling images from aº
+  │        │      │           Bºprivate registryº
+  │        │      │
+  │        │      └ YES → $º$ kubectl logs $pod_name --previous º
+  │        │                  └────────────┬──────────────────┘
+  │        └───────────────────────────────┘
+  └ YES →QºQ: Are ther Pods READY?º
+           └──┬──────────────────┘
+  ┌───────────┘
+  ├ NO  → $º$ kubectl describe º←QºQ: Is the Readiness probeº
+  │       $º    pod $pod_name  º Qº   failing?º
+  │                                └──┬────────────────────┘
+  │           ┌───────────────────────┘
+  │           ├ YES →BºFix the Readiness Probeº
+  │           │
+  │           └ NO  →RºUnknown Stateº
+  │
+  └ YES → $º$ kubectl port-forward      \ º ←QºQ: Can you access the app?º
+          $º    $pod_name  8080:$pod_port º    └──────────┬─────────────┘
+  ┌───────────────────────────────────────────────────────┘
+  ├ NO  →QºQ: Is the port exposed by container correctº
+  │      Qº   and listening on 0.0.0.0?º
+  │        └────────────────────┬────────────────────┘
+  │       ┌─────────────────────┘
+  │       ├ NO  →BºFix the app. It should listen onº
+  │       │      Bº0.0.0.0.º
+  │       │      BºUpdate the containerPortº
+  │       │
+  │       └ YES →RºUnknown Stateº
+  ↓
+  YES
+  ↓
+Bº***************************º
+Bº*POD ARE RUNNING CORRECTLY*º
+Bº***************************º
+   └──────────┬────────────┘
+              ↓
+$º$ kubectl describe   \  º ←QºQ: Can you see a listº
+$º  service $SERVICE_NAME º  Qº    of endpoints?º
+                               └──────┬────────────┘
+  ┌───────────────────────────────────┘
+  ├ NO  →QºQ: Is the Selector matching the rightº
+  │      Qº   Pod label?º
+  │        └──┬────────────────────────────────┘
+  │     ┌─────┘
+  │     ├ NO  → Fix the Service selector. It has
+  │     │       to match the Pod labels
+  │     │
+  │     └ YES →QºQ: Does the Pod have an IP address assigned?º
+  │              └──┬───────────────────────────────────────┘
+  │           ┌─────┘
+  │           ├ NO  → There is an issue with
+  │           │       the Controller Manager
+  │           │
+  │           └ YES → There is an issue with the Kubelet
+  │
+  └ YES →$º$ kubectl port-forward    \ º←QºQ: Can you visit the app?º
+         $º    service/$SERVICE_NAME \ º   └──┬────────────────────┘
+         $º    8080:$SERVICE_PORT      º      │
+                                              │
+  ┌───────────────────────────────────────────┘
+  ├ NO  →QºQ: Is the targetPort on the Service º
+  │      Qº   matching the containerPort in theº
+  │      Qº   Pod?º
+  │        └──┬────────────────────────────────┘
+  │     ┌─────┘
+  │     ├ NO  →BºFix the Service targetPort andº
+  │     │      Bºthe containerPodº
+  │     │
+  │     └ YES →BºThe issue could be with Kube Proxyº
+  ↓
+ YES
+  ↓
+Bº******************************º
+Bº*SERVICE IS RUNNING CORRECTLY*º
+Bº******************************º
+  ↓
+$º$ kubectl describe    \ º←QºQ: Can you see a list of Backends?º
+$º  ingress $INGRESS_NAME º   └──┬─────────────────────────────┘
+  ┌──────────────────────────────┘
+  ├ NO  →QºQ: Are the serviceName and servicePortº
+  │      Qº   mathcing the service?º
+  │        └──┬─────────────────────────────────┘
+  │       ┌───┘
+  │       ├ NO  →BºFix the ingress serviceName and servicePortº
+  │       │
+  │       └ YES →BºThe issue is specific to the Ingress Controllerº
+  │              BºConsult the docs for your Ingressº
+  ↓
+ YES
+  ↓
+Bº**********************************º
+Bº*THE INGRESS IS RUNNING CORRECTLY*º
+Bº**********************************º
+Bº(The app should be working now!!!)º
+  │
+  ↓                         ┌ NO  →RºThe issue is likely to be with the   º
+                            │      RºInfrastructure and how the cluster isº
+QºQ:  Can you visit app º→ ─┤      Rºexposedº
+Qº    from the Internet?º   │
+                            │       Bº*****º
+                            └ YES → Bº*END*º
+                                    Bº*****º
+</pre>
+
+
+<pre zoom labels="">
+<span xsmall>Lovely Compatibility Matrix </span>
+100% UTF-8 indexable text
+
+         AAA  BBB  CCC  DDD  EEE FFF
+       ┌─────────────────────────────
+row01  │ ✅ │ ✅ │ ❌ │ ❌ │ ❌ │ ✅
+       ├────┼────┼────┼────┼────┼────
+row02  │ ✅ │ ✅ │ ✅ │ ✅ │ ❌ │ ❌
+       ├────┼────┼────┼────┼────┼────
+row03  │ ✅ │ ✅ │ ✅ │ ✅ │ ✅ │ ✅
+       ├────┼────┼────┼────┼────┼────
+row04  │ ✅ │ ✅ │ ✅ │ ✅ │ ❌ │ ❌
+       ├────┼────┼────┼────┼────┼────
+row05  │ ✅ │ ✅ │ ✅ │ ✅ │ ✅ │ ✅
+       └────┴────┴────┴────┴────┴────
+</pre>
+
+
+<pre zoom labels="tutorial,money">
 UUID: 25b87ba3-eae5-420a-b8a1-0702fe602c80
 <span xsmall>Lot ofRºsecretsº here</span>
 <span xsmall>Click twice to see them!!!</span>
@@ -157,7 +379,7 @@ Gº)º|  base64 -d | \
                  Qº|___/º 
 </pre>
 
-<pre zoom labels="resource">
+<pre zoom labels="resource,TODO">
   <span xsmall>Link collection 3</span>
 <!--
   The javascript will automatically add the target="_new" attribute to
@@ -210,7 +432,7 @@ Gº)º|  base64 -d | \
 <div groupv>
 <span title>Some title over here</span>
 
-<pre zoom labels="diagram,feature3,product4" >
+<pre zoom labels="diagram,feature3,project4" >
 <span xsmall>Simple Text Diagram</span>
 
  ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -258,7 +480,7 @@ Gº)º|  base64 -d | \
 </br>
 </br>
 <span xsmall>A circuit here!</span>
-<svg zoom labels="product1,product2,product3,product4,product6,product7" viewBox="19 19 649 302" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg zoom labels="project1,project2,project3,project4,project6,project7" viewBox="19 19 649 302" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="100,120 108,120 108,114 132,114 132,120 140,120 "/>
     <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="104" y1="110" x2="136" y2="110"/>
@@ -714,67 +936,67 @@ Gº)º|  base64 -d | \
 <table>
 <tr>
 <td></td>
-<td>product1</td>
-<td>product2</td>
-<td>product3</td>
-<td>product4</td>
+<td>project1</td>
+<td>project2</td>
+<td>project3</td>
+<td>project4</td>
 </tr>
 
 <tr>
 <td>feature1</td>
-<td><pre zoom labels="feature1,product1"><span xsmall>...</span>details of feature1 at product 1</pre></td>
-<td><pre zoom labels="feature1,product2"><span xsmall>...</span>details of feature1 at product 2</pre></td>
-<td><pre zoom labels="feature1,product3"><span xsmall>...</span>details of feature1 at product 3</pre></td>
-<td><pre zoom labels="feature1,product4"><span xsmall>...</span>details of feature1 at product 4</pre></td>
+<td><pre zoom labels="feature1,project1"><span xsmall>...</span>details of feature1 at product 1</pre></td>
+<td><pre zoom labels="feature1,project2"><span xsmall>...</span>details of feature1 at product 2</pre></td>
+<td><pre zoom labels="feature1,project3"><span xsmall>...</span>details of feature1 at product 3</pre></td>
+<td><pre zoom labels="feature1,project4"><span xsmall>...</span>details of feature1 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature2</td>
-<td><pre zoom labels="feature2,product1"><span xsmall>...</span>details of feature2 at product 1</pre></td>
-<td><pre zoom labels="feature2,product2"><span xsmall>...</span>details of feature2 at product 2</pre></td>
-<td><pre zoom labels="feature2,product3"><span xsmall>...</span>details of feature2 at product 3</pre></td>
-<td><pre zoom labels="feature2,product4"><span xsmall>...</span>details of feature2 at product 4</pre></td>
+<td><pre zoom labels="feature2,project1"><span xsmall>...</span>details of feature2 at product 1</pre></td>
+<td><pre zoom labels="feature2,project2"><span xsmall>...</span>details of feature2 at product 2</pre></td>
+<td><pre zoom labels="feature2,project3"><span xsmall>...</span>details of feature2 at product 3</pre></td>
+<td><pre zoom labels="feature2,project4"><span xsmall>...</span>details of feature2 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature3</td>
-<td><pre zoom labels="feature3,product1"><span xsmall>...</span>details of feature3 at product 1</pre></td>
-<td><pre zoom labels="feature3,product2"><span xsmall>...</span>details of feature3 at product 2</pre></td>
-<td><pre zoom labels="feature3,product3"><span xsmall>...</span>details of feature3 at product 3</pre></td>
-<td><pre zoom labels="feature3,product4"><span xsmall>...</span>details of feature3 at product 4</pre></td>
+<td><pre zoom labels="feature3,project1"><span xsmall>...</span>details of feature3 at product 1</pre></td>
+<td><pre zoom labels="feature3,project2"><span xsmall>...</span>details of feature3 at product 2</pre></td>
+<td><pre zoom labels="feature3,project3"><span xsmall>...</span>details of feature3 at product 3</pre></td>
+<td><pre zoom labels="feature3,project4"><span xsmall>...</span>details of feature3 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature4</td>
-<td><pre zoom labels="feature4,product1"><span xsmall>...</span>details of feature4 at product 1</pre></td>
-<td><pre zoom labels="feature4,product2"><span xsmall>...</span>details of feature4 at product 2</pre></td>
-<td><pre zoom labels="feature4,product3"><span xsmall>...</span>details of feature4 at product 3</pre></td>
-<td><pre zoom labels="feature4,product4"><span xsmall>...</span>details of feature4 at product 4</pre></td>
+<td><pre zoom labels="feature4,project1"><span xsmall>...</span>details of feature4 at product 1</pre></td>
+<td><pre zoom labels="feature4,project2"><span xsmall>...</span>details of feature4 at product 2</pre></td>
+<td><pre zoom labels="feature4,project3"><span xsmall>...</span>details of feature4 at product 3</pre></td>
+<td><pre zoom labels="feature4,project4"><span xsmall>...</span>details of feature4 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature5</td>
-<td><pre zoom labels="feature5,product1"><span xsmall>...</span>details of feature5 at product 1</pre></td>
-<td><pre zoom labels="feature5,product2"><span xsmall>...</span>details of feature5 at product 2</pre></td>
-<td><pre zoom labels="feature5,product3"><span xsmall>...</span>details of feature5 at product 3</pre></td>
-<td><pre zoom labels="feature5,product4"><span xsmall>...</span>details of feature5 at product 4</pre></td>
+<td><pre zoom labels="feature5,project1"><span xsmall>...</span>details of feature5 at product 1</pre></td>
+<td><pre zoom labels="feature5,project2"><span xsmall>...</span>details of feature5 at product 2</pre></td>
+<td><pre zoom labels="feature5,project3"><span xsmall>...</span>details of feature5 at product 3</pre></td>
+<td><pre zoom labels="feature5,project4"><span xsmall>...</span>details of feature5 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature6</td>
-<td><pre zoom labels="feature6,product1"><span xsmall>...</span>details of feature6 at product 1</pre></td>
-<td><pre zoom labels="feature6,product2"><span xsmall>...</span>details of feature6 at product 2</pre></td>
-<td><pre zoom labels="feature6,product3"><span xsmall>...</span>details of feature6 at product 3</pre></td>
-<td><pre zoom labels="feature6,product4"><span xsmall>...</span>details of feature6 at product 4</pre></td>
+<td><pre zoom labels="feature6,project1"><span xsmall>...</span>details of feature6 at product 1</pre></td>
+<td><pre zoom labels="feature6,project2"><span xsmall>...</span>details of feature6 at product 2</pre></td>
+<td><pre zoom labels="feature6,project3"><span xsmall>...</span>details of feature6 at product 3</pre></td>
+<td><pre zoom labels="feature6,project4"><span xsmall>...</span>details of feature6 at product 4</pre></td>
 </tr>
 <tr>
 <td>feature7</td>
-<td><pre zoom labels="feature7,product1"><span xsmall>...</span>details of feature8 at product 1</pre></td>
-<td><pre zoom labels="feature7,product2"><span xsmall>...</span>details of feature8 at product 2</pre></td>
-<td><pre zoom labels="feature7,product3"><span xsmall>...</span>details of feature8 at product 3</pre></td>
-<td><pre zoom labels="feature7,product4"><span xsmall>...</span>UUID: ec73534b-e977-4316-aeff-5a86c2d764b8 details of feature8 at product 4</pre></td>
+<td><pre zoom labels="feature7,project1"><span xsmall>...</span>details of feature8 at product 1</pre></td>
+<td><pre zoom labels="feature7,project2"><span xsmall>...</span>details of feature8 at product 2</pre></td>
+<td><pre zoom labels="feature7,project3"><span xsmall>...</span>details of feature8 at product 3</pre></td>
+<td><pre zoom labels="feature7,project4"><span xsmall>...</span>UUID: ec73534b-e977-4316-aeff-5a86c2d764b8 details of feature8 at product 4</pre></td>
 
 </tr>
 </table>
 </div>
 <div group>
-<span title>Linux man pages in a row</span><br/>
-<pre zoom labels="tutorial,troubleshooting">
+<span title>Condensed Manual pages</span><br/>
+<pre zoom labels="tutorial,project1,project2,troubleshooting,feature1,feature2">
 <span xsmall>ABIDIFF</span>
 
 ABIDIFF(1)                       Libabigail                       ABIDIFF(1)
@@ -855,7 +1077,7 @@ OPTIONS         top
 </pre>
 
 
-<pre zoom>
+<pre zoom labels="project3,project4,troubleshooting,feature3,feature4">
   <span xsmall>ABIDW</span>
 ABIDW(1)                         Libabigail                         ABIDW(1)
 
@@ -1086,7 +1308,7 @@ COLOPHON         top
 
 </pre>
 
-<pre zoom>
+<pre zoom labels="project5,project6,troubleshooting,feature5,feature6">
     <span xsmall>ABILINT</span>
 ABILINT(1)                       Libabigail                       ABILINT(1)
 
@@ -1199,7 +1421,7 @@ COLOPHON         top
                                 Apr 30, 2018                      ABILINT(1)
 </pre>
 
-<pre zoom>
+<pre zoom labels="project7,project1,troubleshooting,feature7,feature1">
     <span xsmall>ABIPKGDIFF</span>
 ABIPKGDIFF(1)                    Libabigail                    ABIPKGDIFF(1)
 
@@ -1782,7 +2004,7 @@ $ºcal -y -mº
                                             
 </pre>
 
-<pre zoom labels="resource">
+<pre zoom labels="resource,TODO">
 <span xsmall>All my Contacts</span>
  Contact10  +01123123123  Contact20  +01123123123  Contact30  +01123123123         Contact10  +01123123123  Contact20  +01123123123  Contact30  +01123123123
  Contact11  +01123123123  Contact21  +01123123123  Contact31  +01123123123         Contact11  +01123123123  Contact21  +01123123123  Contact31  +01123123123
@@ -1808,7 +2030,7 @@ $ºcal -y -mº
  Contact19  +01123123123  Contact29  +01123123123  Contact39  +01123123123         Contact19  +01123123123  Contact29  +01123123123  Contact39  +01123123123
 </pre>
 
-<pre zoom labels="project,diagram">
+<pre zoom labels="project1,project2,project3,diagram,TODO,done">
 <span xsmall>Simple Gantt Diagram</span>
 Using a text editor with column mode support like vim, UltraEdit, Eclipse, Visual Studio Code, ...
 vim is ideal due to its superb macro-support.
@@ -1828,7 +2050,7 @@ QºTask3                                          xx xx xx xx xx xx xx xx xx xx 
 ...                                                                                                   Rº│º              Bº│º
 </pre>
 
-<pre zoom labels="project,feature1,feature2,feature3,product1,product2,product3">
+<pre zoom labels="feature1,feature2,feature3,project1,project2,project3">
 <span xsmall>Project 01</span>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo 
 ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis 
@@ -1844,7 +2066,7 @@ Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
 ullamcorper ultricies nisi. Nam eget dui.
 </pre>
 
-<pre zoom  labels="project,feature1,feature2,feature3,product4,product6">
+<pre zoom  labels="feature1,feature2,feature3,project4,project6">
 <span xsmall>Project 02</span>
 Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam 
 semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, 
@@ -1878,7 +2100,7 @@ Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum
 fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis.
 </pre>
 
-<pre zoom  labels="project,feature4,feature5,product1,product3">
+<pre zoom  labels="feature4,feature5,project1,project3">
 <span xsmall>Project 03</span>
 Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu 
 sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, 
@@ -1949,7 +2171,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 <div groupv>
 <span title>mathML works too! on <a href="https://en.wikipedia.org/wiki/Comparison_of_web_browsers#Web_technology_support">Firefox&amp;Opera</a></span>
 
-<math zoom xmlns="http://www.w3.org/1998/Math/MathML" display="block" labels="math,feature1,product1">
+<math zoom xmlns="http://www.w3.org/1998/Math/MathML" display="block" labels="math,feature1,project1">
 <mrow>
   <mi>x</mi>
   <mo>=</mo>
@@ -1988,7 +2210,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 
 <span title>Fourier Transform</span>
 
-<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature2,product2">
+<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature2,project2">
   <mi>F</mi>
   <mrow>
     <mo>(</mo>
@@ -2050,7 +2272,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 </math>
 
 <span title>What about complex Formulae?</span>
-<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature3,product3">
+<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature3,project3">
   <msub>
     <mi>C</mi>
     <mi>m</mi>
@@ -2165,7 +2387,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 </math>
 
 <span title>Yet Another Complex Formula</span>
-<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature4,product4">
+<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature4,project4">
   <mi>G</mi>
   <mrow>
     <mo>(</mo>
@@ -2233,7 +2455,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 </math>
 
 <span title>Time to integrate</span>
-<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature5,product4">
+<math zoom  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature5,project4">
   <mo>&Integral;</mo>
   <mfrac>
     <mi>dx</mi>
@@ -2357,7 +2579,7 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 </math>
 
 <span title>Let's try with Scottish equations</span>
-<math zoom labels="troubleshooting"  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature6,product6">
+<math zoom labels="troubleshooting"  xmlns="http://www.w3.org/1998/Math/MathML" labels="math,feature6,project6">
   <mrow>
     <mrow>
       <mi fontstyle="normal">∇</mi>
@@ -2449,15 +2671,53 @@ UUID: 42e5f97a-2a8c-4d76-8d9e-deb4502541d0
 </math>
 </div>
 
-<br/><hr/>
-Note 1: When you make a search or filter by label/topic, all the non-related content is hidden by default.<br/>
-Just <b>press the "Scape" key to show hidden content</b>. Search results are still highlighted to let you
-where they are placed on the (mental) map.<br/>
-Note 2: When you navigate randomnly by clicking on "zoomable" content the history will reflect your "click" history.<br/>
-Once you make a search (by selecting a label filter and/or a text search) the history transform into a control
-to navigate to the next/previous search result.<br/>
-<br/>
+<div group>
+<span title>Kanban Board</span>
+<hr/>
+<div groupv>
+<span title>Testing</span>
+<pre zoom labels="project1,testing">
+<span xsmall>story_17</span>
+Lorem ipsum dolor sit amet
+</pre>
+<pre zoom labels="project2,testing">
+<span xsmall>story_15</span>
+Lorem ipsum dolor sit amet
+</pre>
+</div>
 
+<div groupv>
+<span title>Done</span>
+<pre zoom labels="project3,done">
+<span xsmall>story_33</span>
+Lorem ipsum dolor sit amet
+</pre>
+<pre zoom labels="project4,done">
+<span xsmall>story_34</span>
+Lorem ipsum dolor sit amet
+</pre>
+</div>
+
+</div>
+
+<br/><hr/>
+<ul>
+<li>
+    Note 1: When you make a search or filter by label/topic, all the
+    non-related content is hidden by default.<br/>
+    Just <b>press the "Scape" key to show hidden content</b>. 
+    Search results are still highlighted to let you
+    where they are placed on the (mental) map.<br/>
+</li>
+<li>
+    Note 2: When you navigate randomnly by clicking on "zoomable" 
+    content the history will reflect your "click" history.<br/>
+    Once you make a search (by selecting a label filter and/or 
+    a text search) the history transform into a control
+    to navigate to the next/previous search result.<br/>
+ </li>
+</ul>
+<br/>
 
 <h1>How to create a new SPB</h1>
   <table>
@@ -2473,20 +2733,19 @@ to navigate to the next/previous search result.<br/>
   <h3>STEP 2</h1>
    Start to add content inside standard html blocks<br/>
 <code>
-   &lt;pre&gt;<br/>
-      Aenean posuere, tortor sed cursus...<br/>
-   &lt;/pre&gt;
+ ┌ &lt;pre&gt;<br/>
+ │    Aenean posuere, tortor sed cursus...<br/>
+ └ &lt;/pre&gt;
 </code>
   </td>
   <td>
   <h3>STEP 3</h1>
   add the attribute <span style="color:#080">"zoom"</span> to the block like:<br/>
 <pre>
-┌───────────────────────────────
-│&lt;pre <span style="color:#080">zoom</span>&gt;
-│  Aenean posuere, tortor sed cursus...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌ &lt;pre <span style="color:#080">zoom</span>&gt;
+  │   Aenean posuere, tortor sed cursus...
+  │   ...
+  └ &lt;/pre&gt;
 </pre>
   </td>
   </tr>
@@ -2494,17 +2753,16 @@ to navigate to the next/previous search result.<br/>
   <td>
   <h3>STEP 4</h1>
   - Now tag your content with all the labels you want.<br/>
-  - You can think of a label as a generic "topic" that englobes related content<br>
+  - labels help to group "topics" of related content by 
+    cross-cutting concerns.<br>
   - Adding Labels will simplify the search of content and also
     will allow to dynamically see mind-maps of related content. <br/>
-  - Click on the "Labels" icon now to see how it works in this demo <br/>
-  (The icon on the top of the page, to the left of the (regex)search)<br/>
+  - Click on the "target" icon (top-left corner) now to see how it
+     works in this demo <br/>
 <pre>
-┌──────────────────────────────
-│&lt;pre zoom <span style="color:#080">labels="topic1,topic2,..."</span> &gt;
-│  Aenean posuere, tortor sed cursus...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌&lt;pre zoom <span style="color:#080">labels="topic1,topic2,..."</span> &gt;
+  │  Aenean posuere, tortor sed cursus...
+  └&lt;/pre&gt;
 </pre>
   </td>
   <td>
@@ -2521,20 +2779,17 @@ to navigate to the next/previous search result.<br/>
         <span style="color:#A0A">xsmall</span> (or <span style="color:#0A0">title</span>)
         attribute:<br/>
 <pre>
-┌──────────────────────────────
-│&lt;pre <span style="color:#080">zoom</span>&gt;
-│&lt;span <span style="color:#A0A">xsmall</span>&gt;visible hint&lt;/span&gt;
-│  Aenean posuere, tortor sed cursus...
-│   ...
-│&lt;/pre&gt;
-└──────────────────────────────
+  ┌  &lt;pre <span style="color:#080">zoom</span>&gt;
+  │  &lt;span <span style="color:#A0A">xsmall</span>&gt;visible hint&lt;/span&gt;
+  │    Aenean posuere, tortor sed cursus...
+  │     ...
+  └  &lt;/pre&gt;
 </pre><br/>
      
   </td>
   <td>
   <h3>STEP 6: Place content in shelfs</h1>
-      Most probably you want to order your notes grouped in
-      orizontal or vertical selfs.<br/>
+      Most probably you want to order your notes grouped in horizontal or vertical shelfs.<br/>
       ALl that needed to <span style="color:brown;">create a shelf</span> for
        your "zoom"able content is to place it inside <br/>
        <code style="color:brown;">&lt;div group&gt;...&lt;/div&gt;</code> (horizontal shelf) <br/>
@@ -2547,11 +2802,9 @@ to navigate to the next/previous search result.<br/>
 
   </table>
 
-
-
 <h1>Learn more...</h1>
 · Visit <a href="../index.html">˃˃ this page ˂˂</a> for further information about Single Page Books design.<br/><br/>
-· Visit <a href="../IT_notes_index.html">˃˃ this page ˂˂</a> for some real SPBs I've been writing while working on real IT projects.
+· Visit <a target="_new" href="http://www.oficina24x7.com">Oficina24x7.com</a> for some real SPBs I've been writing while working on real IT projects.
 </body>
 </table>
 </body>
