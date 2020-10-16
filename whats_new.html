@@ -1,0 +1,155 @@
+<html>
+<head>
+<html>
+   <meta charset="UTF-8">
+   <title>Single Page Book Project. What's new v1.1</title>
+<link rel="stylesheet" type="text/css" href="/SPB/map_v1.css" />
+<style>
+h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; 
+}
+body { 
+  max-width: 100%;
+  margin-left:1em;
+  margin-right:1em;
+  padding:0;
+}
+
+ul {
+  padding: 1em;
+}
+</style>
+</head>
+<body>
+<h1><a target="_new" href="./index.html">SPB project</a>: What's new</h1>
+
+<h2><a target="_new" href="./index.html"></a>version 1.3</h2>
+<ul>
+    <li>Huge Code refactoring<br/>.<br/>
+        The previous code grew from a few tens of lines to more than 600+. Still not big deal, 
+        but reading it or making an small change started to be problematic.<br/>
+        v.1.3 profits  from EcmaScript Module support in modern browsers, and it 
+        also splitting code into separate components and controllers. <br/>
+        it continues with the philosophy of being minimalist. Just a single file
+        with no external library dependencies.
+    </li>
+    <li>Possibility to customize adding life-cycle hooks:<br/>
+        By profiting from EcmaScript module support, now a custom.js module can
+        be added to customize the behaviour. The IT_notes projects profits to
+        add an embedded link to Github in the menu bar.
+    </li>
+    <li>Improved CSS styling</li>
+    <li><a href="http://www.oficina24x7.com/">TT Notes</a>, the first and reference SPB collection,
+        continues to improve its content.<br/>
+    </li>
+    <li>The new re-architectured core supports <b>up to 10 millions simultaneous users</b>!!!.
+        <br/>
+        Actually this is short of a joke. Since books are downloaded and queried offline on
+        the browser, simultaneous reads scalates forever. And since content is standard HTML
+        existing cache systems and Content Delivery Networks will continue to work as ussual.
+        <br/>
+        Still, this is not something we can NOT with many "proffesional" CMSs or Wikis that 
+        soon get starved with just 10.000 simultaneous users.<br/>
+        I said 10 millions, why not a billion. It will continue to work as soon as we have
+        a billion users with a web browser around.<br/>
+    </li>
+</ul>
+<hr/>
+<h2><a target="_new" href="./index.html">SPB project</a>version 1.2</h2>
+<ul>
+    <li>
+         Shell-like text replacement <br/>. Sometimes long text is repeated lot of times, specially
+         base URL. Not it's possible to add a (javascript) dictionary in spb.replaceMap like
+         { "wikipedia" : "https://en.wikipedia.org/wiki" }. Then links can be used like:
+         @[${wikipedia}/Niklas_Luhmann].
+    </li>
+    <li>
+        Topics starting by TODO now are highlighted in red color.
+    </li>
+    <li>Terminal/Console CSS: 
+      <code>cli</code> attribute will render a nice console decoration around blocks.
+      On <code>&lt;pre&gt;</code> elements. See 
+      <a href="http://www.oficina24x7.com:8000/DevOps/kubernetes_map.html?topics=UUID:44f7447a-dda7-4949-8e9e-4c4d7eb1d9d1">Example</a>
+    </li>
+    <li>improved UUID handling. Now treated like an special topic for easier 
+        external linking.
+    </li>
+    <li><a href="http://www.oficina24x7.com/">TT Notes</a>, the first reference SPB collection, continues to improve its content.</li>
+</ul>
+
+
+<hr/>
+<h2><a target="_new" href="./index.html">SPB project</a>version 1.1</h2>
+<ul>
+<li>Print to paper support:<br/>
+    A printed-book-style is now available, useful for first-lectures (start-to-end) approach<br/>
+    Now you can look at info 
+    like a <a href="http://www.oficina24x7.com/Blockchain/ethereum_map.html">map</a> or  
+    like a <a href="http://www.oficina24x7.com/Blockchain/ethereum_map.pdf">book</a> with Gutenberg seal-of-approval.
+    To create a printed book just use your browser "Print..." menu.<br/>
+    Or you can also filter out non-interesting content to create sub-books first.<br/>
+    Very wide schemas will break, anything else will (hopefully) work.<br/>
+</li>
+<li>Cleaned Search Interface and keyboard shortcuts now in place.<br/>
+    Press key "S" to access the search menu (or "/" for vim supremacists)<br/>
+    Also the Search menu can be open automatically with pre-filled search dialog
+    with pre-selected topics and/or free text.<br/>
+    Contact with <a href="./help.html">HelpMan</a> for examples.
+</li>
+<li>smoother zoom</li>
+<li>and automatic background coloring of divs, offering a visual help while zooming in/out</li>
+<li>Search by text/topics popup can be displayed at page load by just adding the URL parameter '?showSearchMenu'</li>
+<li>Search popup now displays the total number of sections found on each topic. This easily servers
+    to evaluate the importance or weight of a given topic on the page/book/map/dashboard/canvas/...(add yours).
+</li>
+<li>Simple topic topic-counters are in place.<br/>
+    Very primitive stat method, but enough to see at a glance what the most
+    content-aware cells are, based on number of topics covered.<br/>
+    No need to click somewhere of dig into menus to see them, they are
+    where they the deserve, on the front-page.
+</li>
+<li>The SPB and IT_notes have been split in two different projects.<br/>
+    Historically SPB was just a tool to organized my IT notes, after years of
+    frustration with wikis, online services, note-keeping apps, ... and for more
+    than two years SPB was just extra-stuff around IT_notes. Finally SPB is
+    a own project on itself than can be used for general note-keeping/ordering/searching
+    on its own.
+</li>
+</ul>
+
+<h3>IT_Notes Content</h3>
+This project started as a way to write down IT notes in the most efficient way. An so IT notes
+continue to grow.
+<ul>
+    <li>Improved 
+        <a target="_new" href="http://www.oficina24x7.com//JAVA/java_map.html">Java</a>,
+        <a target="_new" href="http://www.oficina24x7.com/DevOps/linux_administration_summary.html">Linux Admin</a> 
+        and <a target="_new" href="http://www.oficina24x7.com/Blockchain/ethereum_map.html">Ethereum maps</a>,
+        <a target="_new" href="http://www.oficina24x7.com/General/cryptography_map.html">cryptography</a>,
+        <a target="_new" href="http://www.oficina24x7.com/DevOps/devops_map.html">DevOps</a>,
+        <a target="_new" href="http://www.oficina24x7.com/DevOps/kubernetes_map.html">kubernetes</a>,
+  </li>
+  <li>First skeletons of <a target="_new" href="http://www.oficina24x7.com/MachineLearning/map.html">Machine-Learning</a>,
+      <a target="_new" href="http://www.oficina24x7.com/Python/map.html">Python</a>, 
+      <a target="_new" href="http://www.oficina24x7.com/Architecture/financial_arch_map.html"> financial architecture</a>, 
+      <a target="_new" href="http://www.oficina24x7.com/Blockchain/corda_map.html">R3 Corda</a>,
+      <a target="_new" href="http://www.oficina24x7.com/Blockchain/fabric_map.html">Fabric</a>,
+      <a target="_new" href="http://www.oficina24x7.com/Blockchain/sawthooth_map.html">Sawthooth</a>,
+      <a target="_new" href="http://www.oficina24x7.com/DevOps/devops_map.html">DevOps (jenkins, terrafom, ansible, puppet,...all in one page!)</a><br/>
+      (lot of work and fun ahead!!!)
+  </li>
+</ul>
+
+<h3>The arrival of a hero</h3>
+<li>After being bitten by a radioactive web-crawler the help popup started to notice
+    something weird.<br/>
+    It didn't take much time before realising of his new super-powers.<br/>
+    Realising of the badness around him, he decided that it was time to use those
+    super-powers for the welfare of the Human beings, saving the World from the
+    badness of Power Point and his evil friends.<br/>
+    Welcome <a target="_new" href="./help.html">HelpMan</a>, the evil Empire of Power Point
+    is comming to and end!!! <br/> 
+    <img src="./helpman.icon.svg" vertical-align="bottom;" height="100em;">
+</li>
+
+<body>
+</html>
