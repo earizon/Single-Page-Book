@@ -1,1 +1,531 @@
-/home/earizon/IT_notes/map_v1.css
+@media only screen {
+  *[bggray]   { background-color:gray   !important;}
+  *[bgyellow] { background-color:yellow !important;}
+  *[bgblue]   { background-color:#CCF   !important;}
+  *[bgorange] { background-color:#FFDF5F!important;}
+  *[bggreen]  { background-color:#AFA   !important;}
+  *[bgbrown]  { background-color:#FFEBCD!important;}
+  *[bgred]    { background-color:#FF8888!important;}
+  
+  *[console]  {
+    background-color:black    !important;
+    color           :#AFA     !important;
+    line-height     :1.2em;
+    padding         :0 0.2rem 0 0.2rem;
+  }
+  *[console]:before  { content: "┃"; }
+
+#upper_bar {
+    top: 0;
+    height: 1.8rem;
+    font-size:1.8rem;
+    padding:0.2em;
+    background-color:#DDD;
+    outline: 1px solid black;
+    white-space: nowrap;
+    box-shadow: 0 0 200px orange;
+    margin-left: -0.5rem; /* must match inverted body.margin-left*/
+    margin-bottom: 0.5rem;
+}
+
+body {
+  font-family: sans-serif; font-size:16px; padding: 0; margin: 0; line-height:1.1; background-color:#EEE;
+  margin-left: 0.5rem; /* must match inverted upper_bar.margin-left*/
+}
+
+#zoomDiv, #searchForm  { 
+   z-Index:10;
+   display:none;
+   line-height:1.1;
+   width:auto; height:auto;
+   max-height: 94%; min-width:50%; max-width: 96%; overflow: auto;
+   background-color:#FFFFFF; color:#000; border-radius: 0.5rem; border: 4px solid black; font-size: 1rem;
+   box-shadow: 0 0 10px black;
+   padding: 0.5rem;
+   background-color: #FFE;
+   transition: width 1s;
+}
+#zoomDiv {
+   position: fixed;
+   bottom: 0.5rem;
+   left: 2%;
+   background-color: #EFF;
+   max-height: 95%;
+   max-width: 90%;
+}
+
+.lectureMode0 { }
+.lectureMode1 {
+   white-space: pre-wrap;
+   line-height: 1.4em;
+}
+
+.lectureMode2 {
+   white-space: break-spaces;
+   font-family: sans-serif;
+   letter-spacing: 0.05em !important;
+   line-height: 1.7em;
+}
+
+#historyBackFor { 
+  font-family:monospace; 
+  color:blue;
+  font-size:1.7rem;
+} 
+#GoBack, #GoForw {
+}
+
+/*
+body > div:nth-of-type(5n-4) {
+    background: yellow;
+    outline-color: yellow;
+}
+body > div:nth-of-type(5n-3) {
+    background: #CCF;
+    outline-color: #CCF;
+}
+body > div:nth-of-type(5n-2) {
+    background: #FFDF5F;
+    outline-color: #FFDF5F;
+}
+body > div:nth-of-type(5n-1) {
+    background: #FFEBCD;
+    outline-color: #FFEBCD;
+}
+body > div:nth-of-type(5n-0) {
+    background: #AFA;
+    outline-color: #AFA;
+}
+*/
+th, h1, h2, h3, h4 { font-family: sans-serif; }
+
+b { color: #0A9; font-weight:normal; text-shadow: 0 0 1px; }
+*[mono] { font-family: 'Source Code Pro',monospace, monospace; white-space: pre; }
+*[zoom] {
+  opacity:0.8;
+  background-color:#EEEEEE; 
+  margin: 3px 0 0 3px;
+  outline: 1px solid grey;
+  padding : 2px 1px 2px 1px;
+  background: linear-gradient(to bottom, #F3F9A7 33%, #CAC531 100%);
+}
+
+*[id=zoomHTMLContent] > * {
+  opacity:1.0;
+}
+
+div[group] > *[zoom] {
+  padding : 2px 10px 2px 1px;
+}
+
+#zoomDiv *[zoom] {
+    margin-right: 1.0rem;
+    box-shadow: none;
+    background-color: inherit;
+    letter-spacing: -0.1em;
+    max-width: 100%;
+    overflow: auto;
+    display: contents;
+}
+
+*[title] {
+    width:auto; 
+    font-family: monospace;
+    font-weight: bold;
+    font-size:0.7rem;
+    color: brown;
+    text-align:right;
+    line-height:1.0em;
+    padding-top:0;
+    padding-bottom:0;
+    word-wrap:break-word;
+    padding-right:0.1rem;
+    padding-left:0.0rem;
+    outline:0px; 
+}
+
+pre[zoom] {
+  float: left; width: auto;
+  margin:0 0 2px 0;
+}
+
+pre, code, kbd, samp, tt{
+  font-family:'Source Code Pro',monospace, monospace;
+  font-size:1em;
+}
+*[zoom] pre  { outline: 0px; }
+math[zoom]{ padding:1.1em 0 1.1em 0; }
+pre > b { }
+
+*[cite]         { font-style: italic; }
+*[TODO]:before  { content: "◔ "; }
+pre[labels*="TODO"] { border-left: 3px solid red; }
+
+*[zoom] { font-size:0.0006rem; }
+img[zoom],svg[zoom]{ max-width:8rem; max-height:8rem;}
+#zoomDiv svg[zoom]{ max-width:none; max-height:none;}
+*[xsmall]  { white-space:normal; font-size:0.7rem; }
+*[small]   { white-space:normal; font-size:0.9rem; }
+*[xxbig]  { font-size:1.7em; font-weight: bold; color:#007733;}
+*[xbig]  { font-size:1.5em; }
+
+*[hidden]  { display:none; }
+div[floatl] { float:left ; margin-right:1em; border-left:1px solid #99f; border-top:1px solid #99f; max-width:calc(49% - 1em);}
+div[floatr] { float:right; margin-left :1em; border-left:1px solid #99f; border-top:1px solid #99f; max-width:calc(49% - 1em);}
+ul,ol { margin-top:0.3em; margin-bottom:0.3em;  margin-left: 1.0em; padding-left: 0rem; }
+#zoomDiv [zoom] , #zoomDiv * [zoom], #zoomDiv * * [zoom], #zoomDiv * * * [zoom]{ font-size:1em; } 
+#zoomDiv img[zoom] , #zoomDiv * img[zoom], #zoomDiv * * img[zoom], #zoomDiv * * * img[zoom]{ max-width:100%; max-height:100%;} 
+
+#previewHTMLContent {
+    position: absolute; max-height: 30em; width: auto;
+    z-index: 100;
+    background: white;
+    display: none;
+    overflow: auto;
+}
+/* REF: https://stackoverflow.com/questions/4910077/select-all-child-elements-recursively-in-css */
+#zoomDiv            *[small] , #zoomDiv            *[xsmall] ,
+#previewHTMLContent *[small] , #previewHTMLContent *[xsmall]
+{ font-size:2em; font-weight: bold; text-decoration: underline; }
+#zoomDiv * td { font-size:1em; }
+#previewHTMLContent > * { font-size: 0.7rem; }
+
+a            { text-decoration:none; font-family:'Source Code Pro',monospace; padding:0.0;}
+a[href^="#"]:before /* mark internal anchor */ {  content: ">"; }
+a[href^="#"]:after  /* mark internal anchor */ {  content: "<"; }
+a:visited { color:blue; }
+td { 
+   font-size: 0.8rem;
+   vertical-align: top;
+   padding:2px;
+   margin:0;
+}
+td,th               {background-color:#FFFFFF; overflow: hidden; }
+
+*[textFound="false"] { display:none; }
+*[textFound="debug"] { background-color: #AAA; }
+
+*[textFound="true"] {
+  outline: 1px solid #0F0;
+  background-color: #DFD;
+  border-top: 5px dotted green;
+}
+
+#zoomDiv *[textFound="true"] {
+  outline: inherit;
+  background-color: inherit;
+}
+
+table { width:100% border:0; margin: 0;}
+
+           *[zoom] { min-height:0.4rem; cursor: cell; }
+         div[zoom] { white-space: pre; }
+#zoomDiv > *[zoom] { border-top:0px   ; cursor: pointer; }
+
+hr {
+    color: black;
+    outline: 1px solid #999;
+    border: 0px;
+    height: 0.1em;
+    margin: 0.1rem 0.0rem 0.0rem 0.0rem ; 
+}
+
+#idLabelsFilter
+{
+    vertical-align: middle;
+    font-size:2.5rem;
+    height:0.9em;
+    outline: 1px solid black;
+    box-shadow: 1px -1px 4px #000;
+    cursor: crosshair;
+}
+#buttonZoomIn,#buttonZoomSep,#buttonZoomOut { float:right; }
+#idLabelsFilter[active=true] {
+    background-color: #AFA;
+}
+
+#inputQuery { 
+  width:10em;
+  box-shadow: 0 0 4px blue;
+  font-size:0.9em;
+  margin-top: 0.2rem;
+  cursor: auto;
+}
+.regexFlags {
+    font-family: monospace;
+    font-size: 0.7em;
+}
+#inputQuery, .regexFlags {
+    color:green;
+}
+
+input[selected=false] {
+    background-color: white;
+}
+input[selected=true] {
+    background-color: black;
+    color: white;
+}
+
+#buttonRefineSeach {
+    padding: 0;
+}
+
+.labelButton {
+    margin-left:0.5rem;
+    margin-bottom:0.5rem;
+    border: 3px solid black;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    font-size:0.9em;
+    cursor: crosshair;
+}
+#divClose, #doSearchButton, #unhide, 
+#butSwitchLectureMode, #textZoomIn, #textZoomOut {
+    font-size:1.5rem;
+    color:blue;
+    padding: 0.1rem  0.3rem 0.1rem 0.3rem;
+    border: 3px solid blue;
+    border-radius: 1rem;
+    text-align: center;
+    background-color: #EEF;
+    box-shadow: 0 0 4px blue;
+    white-space: nowrap;
+    cursor: context-menu;
+}
+#divClose {
+    display: inline;
+    margin-right:0.5em;
+}
+
+#butSwitchLectureMode, #textZoomIn, #textZoomOut  {
+    display: inline;
+    margin-right:0.5em;
+}
+#doSearchButton, #unhide { float: right; }
+#doSearchButton { width: 10em; }
+#unhide         { width: 5em; margin-right:0.5em; }
+
+#historyBackFor {
+    display:inline;
+    margin-left:0rem;
+    font-family: 'Source Code Pro',monospace, monospace;
+}
+
+
+div[group], div[groupv] {
+    /*outline: 3px solid black;*/
+    margin-right: 0.3rem;
+    margin-bottom: 0.6rem;
+    vertical-align: top;
+    padding-left: 2px; /* helps with color hint during navigation */
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 5px grey;
+}
+div[group]:empty, div[groupv]:empty {
+    display: none;
+}
+
+*[groupv] {
+   width: min-content;
+   max-width: min-content;
+   display:inline-grid;
+   background: linear-gradient(to bottom, #FFF 33%, #AAA 100%);
+}
+*[group] {
+   display: inline-block; 
+   background: linear-gradient(to right, #FFF 33%, #AAA 100%);
+/*   max-width: min-content; */
+}
+
+*[groupv] > *[zoom] { margin: 0 0.1rem 0 0.1rem; }
+*[group]  > *[zoom] { margin: 0.2rem; }
+
+
+#divElementLabels {
+  display: inline-block;
+  float: right;
+  text-align: right;
+  margin-top: 1rem;
+}
+
+
+#idLabelSearchAndMode {
+    color: #0000CC;
+}
+
+span[labelcount] {
+     font-family: monospace;
+     font-size: 0.7em;
+     vertical-align: top;
+     color: grey;
+}
+
+*[tagCount] {
+  font-size:0.8rem;
+  position: relative; float: right;
+  top: 0.0em; right: -0.6em; 
+  outline: 1px solid gray;  background-color:white;
+  margin:0; padding:0; 
+}
+
+@font-face{
+  font-family: 'Source Code Pro';
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  src: url('/source-code-pro/EOT/SourceCodePro-Regular.eot') format('embedded-opentype'),
+       url('/source-code-pro/WOFF2/TTF/SourceCodePro-Regular.ttf.woff2') format('woff2'),
+       url('/source-code-pro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
+       url('/source-code-pro/OTF/SourceCodePro-Regular.otf') format('opentype'),
+       url('/source-code-pro/TTF/SourceCodePro-Regular.ttf') format('truetype');
+}
+
+#hint01 { 
+  text-align: center;
+  display: inline-block;
+  color: #440;
+  font-size:0.5rem;
+  transition: transform .3s;  
+}
+#hint01:hover { transform: scale(2.0); z-index: 10; background-color: #FFF }
+
+
+} /* media only screen */
+
+@media (hover:none), (hover:on-demand) {
+/* 
+ * ^^^ REF: https://stackoverflow.com/questions/11387805/media-query-to-detect-if-device-is-touchscreen 
+ **/
+
+    /* START LONG-PRESS { */
+    *[zoom] {
+    /* Disable select https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+      -webkit-touch-callout: none;    /* iOS Safari */
+        -webkit-user-select: none;    /* Safari */
+         -khtml-user-select: none;    /* Konqueror HTML */
+       /*  -moz-user-select: none; */ /* Firefox */
+            -ms-user-select: none;    /* Internet Explorer/Edge */
+                user-select: none;    /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+    }
+
+    #zoomDiv [zoom] , #zoomDiv * [zoom], #zoomDiv * * [zoom], #zoomDiv * * * [zoom]
+    {
+    /* Disable select https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+      -webkit-touch-callout: initial;    /* iOS Safari */
+        -webkit-user-select: initial;    /* Safari */
+         -khtml-user-select: initial;    /* Konqueror HTML */
+           -moz-user-select: initial;    /* Firefox */
+            -ms-user-select: initial;    /* Internet Explorer/Edge */
+                user-select: initial;    /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+    }
+    body { font-size:32px; !important; }
+  
+    *[xsmall] { font-size:0.9rem; }
+    *[small]  { font-size:1.0rem; }
+    /* END   LONG-PRESS } */
+
+    #hint01 { display: none; color:red; }
+}
+
+@media print {
+  *[zoom] {
+    page-break-after:always;
+  }
+  body { margin: 8mm 8mm 8mm 8mm; }
+  div { padding: 0; margin: 0 }
+  .noprint { display: none !important; }
+  *[title] {
+      /*font-family: monospace;*/
+      font-weight: bold;
+      font-size:1.3rem;
+      color: brown;
+      text-align:right;
+      line-height:1.0em;
+  }
+  *[xsmall]  {
+      font-weight:bold; 
+      color: orange;
+  }
+
+  pre, code, kbd, samp, tt{
+    font-family:'Source Code Pro',monospace, monospace;
+    font-size:1em;
+    white-space: break-spaces;
+  }
+
+  *[textFound="false"] { display:none; }
+}
+
+@media all {
+*[gray]     { color:gray   !important; } 
+*[yellow]   { color:#DD0   !important; } 
+*[blue]     { color:blue   !important; } 
+*[orange]   { color:#D09   !important; } 
+*[green]    { color:green  !important; } 
+*[brown]    { color:brown  !important; } 
+*[red]      { color:red    !important; } 
+}
+
+*[cli] {
+ /* clear: both; */
+ /* box-sizing: border-box; */
+ /* position: relative; */
+ /* border-radius: 0 0 1em 1em; */
+ /* box-shadow: 0.1em 0.1em 2px #090909; */
+ /* padding: 1em; */
+ /* word-wrap: break-word; */
+ /* overflow-wrap: break-word; */
+ /*  font-family: "Ubuntu Mono","DejaVu Sans Mono", "Courier New", Courier, monospace; */
+    background: rgba(9, 9, 9, 0.6);
+    color: #63de00;
+    max-width: min-content;
+    padding-left: 0.2em;
+    padding-bottom: 0.2em;
+    border-radius: 0 0 0.5em 0em;
+    box-shadow: 4px 2px 8px #090909;
+}
+
+*[cli]::before {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    content: "⏺ Console ⏎";
+    color: #c9c9c9;
+    font-size: smaller;
+    font-weight: bold;
+    background: #010101;
+/*
+    left: -12px;
+    top: -12px;
+    padding: 12px;
+    line-height: 4px;
+    */
+}
+
+.innerSearch { 
+  display: inline;
+  color:blue; 
+}
+
+span[sub]   { vertical-align: sub  ; font-size:0.5em; letter-spacing: 0.6em; }
+span[super] { vertical-align: super; font-size:0.5em; letter-spacing: 0.6em; }
+
+
+#closePreview {
+    display: inline;
+    float: right;
+    margin: 2px;
+    padding: 2px;
+    outline: 1px solid black;
+}
+
+#previewTop {
+  background: linear-gradient(to bottom, #F3F9A7 33%, #CAC531 100%);
+  padding: 3px;
+  margin: 0;
+  text-align: center;
+  font-family: monospace;
+}
