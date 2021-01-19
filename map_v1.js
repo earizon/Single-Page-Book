@@ -361,7 +361,8 @@ const IC = { // Input Control
     }
     IC.showPreviewTimeout = setTimeout( () => {
       const e = event.target
-      const docWidth = document.body.getBoundingClientRect().width;
+   // const docWidth = document.body.getBoundingClientRect().width;
+      const docWidth = window.innerWidth
       const margin = 10
       const previewDom = document.getElementById("previewHTMLContent")
       if (!!!IC.showPreviewEvent /* First execution */) { 
@@ -371,12 +372,13 @@ const IC = { // Input Control
         IC.showPreviewEvent = event;
       }
             previewDom.style["top"]  = "" + (e.offsetTop + e.getBoundingClientRect().height ) + "px"
-      const freeToLeft  = ( e.getBoundingClientRect().left              )
-      const freeToRight = ( docWidth -  e.getBoundingClientRect().right )
-      const middle = ( freeToLeft + freeToRight ) / 2
+      previewDom.style["left" ] = ""
+      previewDom.style["right" ] = ""
+      const freeToLeft  = ( e.getBoundingClientRect().left  )
+      const freeToRight = ( docWidth - e.getBoundingClientRect().right )
 
       previewDom.style["display"] = "block"
-      previewDom.style["max-width"] = "90%"
+   // previewDom.style["max-width"] = "96%"
       previewDom.innerHTML =
          "<div id='previewTop'>" +
          "<span id='previewHints'> (double click for details)</span>" +
@@ -387,17 +389,32 @@ const IC = { // Input Control
       document.getElementById("closePreview").
               addEventListener('click', IC.hidePreview ) 
       setTimeout( () => {
-        const previewWidthBy2 = previewDom.getBoundingClientRect().width / 2
-        let fromLeft  = middle - previewWidthBy2
-        let toRight = middle + previewWidthBy2
-        const deltaToRight = docWidth - (toRight + margin)
-        if (deltaToRight < 0 /* right overflow. Correct */) {
-            fromLeft += deltaToRight 
+        if (freeToLeft > freeToRight ) {
+console.log(1)
+             previewDom.style["left" ] = "" + e.getBoundingClientRect().right - previewDom.getBoundingClientRect().width + "px"
+        } else {
+console.log(2)
+           previewDom.style["left"  ] = "" + e.getBoundingClientRect().left                                             + "px"
         }
-        if (fromLeft < 0 /* left overflow. Correct */) {
-            fromLeft = margin
+
+        // const previewWidthBy2 = previewDom.getBoundingClientRect().width / 2
+        let overflowRight = false
+        if (previewDom.getBoundingClientRect().right > docWidth ) {
+console.log(3)
+          previewDom.style["right" ] = "calc(100% - 98vw)"
+//        if (previewDom.getBoundingClientRect().width < docWidth ) {
+//          console.log(3.1)
+//          previewDom.style["left" ] = ""
+//        }
         }
-        previewDom.style["left" ] = "" + fromLeft +"px"
+        if (previewDom.getBoundingClientRect().left < 0 ) {
+console.log(4)
+          previewDom.style["left" ] = "calc(2vw)"
+//        if (previewDom.getBoundingClientRect().width < docWidth ) {
+//  console.log(4.1)
+//          previewDom.style["right" ] = ""
+//        }
+        }
       }, 1 /* on next tick */)
     }, 500)
   },

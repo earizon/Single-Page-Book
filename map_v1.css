@@ -182,6 +182,7 @@ ul,ol { margin-top:0.3em; margin-bottom:0.3em;  margin-left: 1.0em; padding-left
     background: white;
     display: none;
     overflow: auto;
+    max-width: 94vw;
 }
 /* REF: https://stackoverflow.com/questions/4910077/select-all-child-elements-recursively-in-css */
 #zoomDiv            *[small] , #zoomDiv            *[xsmall] ,
