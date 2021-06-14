@@ -1,24 +1,7 @@
-@media only screen {
-  *[bggray]   { background-color:gray   !important;}
-  *[bgyellow] { background-color:yellow !important;}
-  *[bgblue]   { background-color:#CCF   !important;}
-  *[bgorange] { background-color:#FFDF5F!important;}
-  *[bggreen]  { background-color:#AFA   !important;}
-  *[bgbrown]  { background-color:#FFEBCD!important;}
-  *[bgred]    { background-color:#FF8888!important;}
-  
-  *[console]  {
-    background-color:black    !important;
-    color           :#AFA     !important;
-    line-height     :1.2em;
-    padding         :0 0.2rem 0 0.2rem;
-  }
-  *[console]:before  { content: "┃"; }
-
+@media only screen { /* desktop and mobile  (vs paper) MEDIA ONLY SCREEN START  {{{ */
 #upper_bar {
-    top: 0;
-    height: 1.8rem;
-    font-size:1.8rem;
+    position: fixed; top: 0; width: 100%; z-index: 100; height: 1.8rem;
+    font-size:2.0rem;
     padding:0.2em;
     background-color:#DDD;
     outline: 1px solid black;
@@ -29,29 +12,61 @@
 }
 
 body {
-  font-family: sans-serif; font-size:16px; padding: 0; margin: 0; line-height:1.1; background-color:#EEE;
+  font-family: sans-serif;
+  font-size:16px;  /* overrided in mobile */
+  padding: 0;
+  margin: 0;
+  line-height:1.1;
+  background-color:#EEE;
   margin-left: 0.5rem; /* must match inverted upper_bar.margin-left*/
+  padding-top: 3rem;
 }
 
 #zoomDiv, #searchForm  { 
-   z-Index:10;
    display:none;
-   line-height:1.1;
-   width:auto; height:auto;
-   max-height: 94%; min-width:50%; max-width: 96%; overflow: auto;
-   background-color:#FFFFFF; color:#000; border-radius: 0.5rem; border: 4px solid black; font-size: 1rem;
+   left: 1%;
+   height:auto;
+   max-height: 95%; 
+   min-width:50%; 
+   max-width: 94%; 
+   overflow: auto;
+   color:#000; border-radius: 0.5rem; border: 4px solid black; font-size: 1rem;
    box-shadow: 0 0 10px black;
    padding: 0.5rem;
+}
+#zoomDivControls {
+   position: fixed;
+   width: 92%;
+}
+#searchForm  { 
+   position: sticky;
+   top: 2.8rem;
+   z-Index:9;
+   width:96%;
+   height:auto;
+   box-shadow: 0 0 10px black;
    background-color: #FFE;
    transition: width 1s;
+   max-height: 30rem;
+}
+#searchAndMode { margin-bottom: 0.7em; }
+
+@keyframes zoomDivAnimation {
+  from   { bottom: 100%; }
+  to     { bottom: 0.5rem; }
 }
 #zoomDiv {
+   z-Index:10;
    position: fixed;
+   width:auto; 
    bottom: 0.5rem;
-   left: 2%;
+   animation-name     : zoomDivAnimation;
+   animation-duration : 1.50s;
+   animation-delay    : 0.0s;
    background-color: #EFF;
-   max-height: 95%;
-   max-width: 90%;
+   opacity: 0;
+   transition: opacity 1s ease-out;
+   max-height: calc( 100% - 5.5em );
 }
 
 .lectureMode0 { }
@@ -72,43 +87,49 @@ body {
   color:blue;
   font-size:1.7rem;
 } 
-#GoBack, #GoForw {
-}
 
-/*
-body > div:nth-of-type(5n-4) {
-    background: yellow;
-    outline-color: yellow;
-}
-body > div:nth-of-type(5n-3) {
-    background: #CCF;
-    outline-color: #CCF;
-}
-body > div:nth-of-type(5n-2) {
-    background: #FFDF5F;
-    outline-color: #FFDF5F;
-}
-body > div:nth-of-type(5n-1) {
-    background: #FFEBCD;
-    outline-color: #FFEBCD;
-}
-body > div:nth-of-type(5n-0) {
-    background: #AFA;
-    outline-color: #AFA;
-}
-*/
 th, h1, h2, h3, h4 { font-family: sans-serif; }
 
-b { color: #0A9; font-weight:normal; text-shadow: 0 0 1px; }
+b { color: #0A9; font-weight:500; /* text-shadow: 0 0 0.1px; */ }
 *[mono] { font-family: 'Source Code Pro',monospace, monospace; white-space: pre; }
 *[zoom] {
-  opacity:0.8;
+  opacity:0.7;
   background-color:#EEEEEE; 
   margin: 3px 0 0 3px;
   outline: 1px solid grey;
   padding : 2px 1px 2px 1px;
   background: linear-gradient(to bottom, #F3F9A7 33%, #CAC531 100%);
 }
+@keyframes zoomOverAnimation {
+  from   {transform:scale(1.5); opacity: 0.3; }
+  90%    {transform:scale(1.0); opacity: 0.3; }
+  to     {transform:scale(1.0); opacity: 1.0; background: white }
+}
+
+* > *[zoom]:hover {
+  font-weight: bold;
+  background-color   : white;
+  animation-name     : zoomOverAnimation;
+  animation-duration : 1.50s;
+  animation-delay    : 0.0s;
+  z-index            : 5;
+  transform          : scale(1.05);
+  background         : white;
+  outline            :  3px solid green;
+}
+
+
+#zoomHTMLContent > *[zoom]:hover {
+  font-weight: inherit;
+  transform: none; 
+}
+
+#zoomHTMLContent { margin-top: 2.5rem; }
+#zoomHTMLContent > * > *[xsmall] ,
+#zoomHTMLContent > * > *[title] {
+  font-size: 1.5em;
+}
+
 
 *[id=zoomHTMLContent] > * {
   opacity:1.0;
@@ -119,6 +140,7 @@ div[group] > *[zoom] {
 }
 
 #zoomDiv *[zoom] {
+    line-height: initial;
     margin-right: 1.0rem;
     box-shadow: none;
     background-color: inherit;
@@ -127,6 +149,7 @@ div[group] > *[zoom] {
     overflow: auto;
     display: contents;
 }
+#zoomDiv math[zoom] { display: initial; }
 
 *[title] {
     width:auto; 
@@ -164,8 +187,8 @@ pre[labels*="TODO"] { border-left: 3px solid red; }
 *[zoom] { font-size:0.0006rem; }
 img[zoom],svg[zoom]{ max-width:8rem; max-height:8rem;}
 #zoomDiv svg[zoom]{ max-width:none; max-height:none;}
-*[xsmall]  { white-space:normal; font-size:0.7rem; }
-*[small]   { white-space:normal; font-size:0.9rem; }
+*[xsmall],*[zoom] > *[title]  
+  { white-space:normal; font-size:0.7rem; word-wrap: normal; }
 *[xxbig]  { font-size:1.7em; font-weight: bold; color:#007733;}
 *[xbig]  { font-size:1.5em; }
 
@@ -176,20 +199,10 @@ ul,ol { margin-top:0.3em; margin-bottom:0.3em;  margin-left: 1.0em; padding-left
 #zoomDiv [zoom] , #zoomDiv * [zoom], #zoomDiv * * [zoom], #zoomDiv * * * [zoom]{ font-size:1em; } 
 #zoomDiv img[zoom] , #zoomDiv * img[zoom], #zoomDiv * * img[zoom], #zoomDiv * * * img[zoom]{ max-width:100%; max-height:100%;} 
 
-#previewHTMLContent {
-    position: absolute; max-height: 30em; width: auto;
-    z-index: 100;
-    background: white;
-    display: none;
-    overflow: auto;
-    max-width: 94vw;
-}
 /* REF: https://stackoverflow.com/questions/4910077/select-all-child-elements-recursively-in-css */
-#zoomDiv            *[small] , #zoomDiv            *[xsmall] ,
-#previewHTMLContent *[small] , #previewHTMLContent *[xsmall]
+#zoomDiv *[xsmall] , #zoomDiv *[title] , 
 { font-size:2em; font-weight: bold; text-decoration: underline; }
 #zoomDiv * td { font-size:1em; }
-#previewHTMLContent > * { font-size: 0.7rem; }
 
 a            { text-decoration:none; font-family:'Source Code Pro',monospace; padding:0.0;}
 a[href^="#"]:before /* mark internal anchor */ {  content: ">"; }
@@ -202,20 +215,6 @@ td {
    margin:0;
 }
 td,th               {background-color:#FFFFFF; overflow: hidden; }
-
-*[textFound="false"] { display:none; }
-*[textFound="debug"] { background-color: #AAA; }
-
-*[textFound="true"] {
-  outline: 1px solid #0F0;
-  background-color: #DFD;
-  border-top: 5px dotted green;
-}
-
-#zoomDiv *[textFound="true"] {
-  outline: inherit;
-  background-color: inherit;
-}
 
 table { width:100% border:0; margin: 0;}
 
@@ -240,25 +239,20 @@ hr {
     box-shadow: 1px -1px 4px #000;
     cursor: crosshair;
 }
-#buttonZoomIn,#buttonZoomSep,#buttonZoomOut { float:right; }
+#loupe,#zoomSlider { float:right; }
 #idLabelsFilter[active=true] {
     background-color: #AFA;
 }
 
-#inputQuery { 
-  width:10em;
-  box-shadow: 0 0 4px blue;
-  font-size:0.9em;
-  margin-top: 0.2rem;
+#inputQuery, #matchNumber { 
+  font-size:1.0em;
+  font-weight:bold;
+  margin: 1.0rem 0 0.1rem 0;
   cursor: auto;
+  color:green;
 }
-.regexFlags {
-    font-family: monospace;
-    font-size: 0.7em;
-}
-#inputQuery, .regexFlags {
-    color:green;
-}
+#inputQuery  { width: 75%; box-shadow: 0 0 4px blue; }
+#matchNumber { width: 15%; float: right; display: inline-block; } 
 
 input[selected=false] {
     background-color: white;
@@ -282,8 +276,8 @@ input[selected=true] {
     cursor: crosshair;
 }
 #divClose, #doSearchButton, #unhide, 
-#butSwitchLectureMode, #textZoomIn, #textZoomOut {
-    font-size:1.5rem;
+#butSwitchLectureMode, #textSizeSlider, #cellIDPanell {
+    font-size:1.1rem;
     color:blue;
     padding: 0.1rem  0.3rem 0.1rem 0.3rem;
     border: 3px solid blue;
@@ -294,18 +288,29 @@ input[selected=true] {
     white-space: nowrap;
     cursor: context-menu;
 }
+#cellIDPanell:empty {
+    display: none;
+}
 #divClose {
-    display: inline;
+    display: inline-block;
     margin-right:0.5em;
+}
+#cellIDPanell {
+    color: black;
+    border: none;
+    border-radius: 0.5rem;
+    display: inline;
 }
 
-#butSwitchLectureMode, #textZoomIn, #textZoomOut  {
+#butSwitchLectureMode, #textSizeSlider {
     display: inline;
     margin-right:0.5em;
 }
-#doSearchButton, #unhide { float: right; }
-#doSearchButton { width: 10em; }
-#unhide         { width: 5em; margin-right:0.5em; }
+#textSizeSlider {
+    vertical-align: text-top;
+}
+#doSearchButton, #unhide { float: right; width: auto; }
+                 #unhide { margin-right:0.5em; }
 
 #historyBackFor {
     display:inline;
@@ -323,9 +328,27 @@ div[group], div[groupv] {
     border-radius: 0.5rem;
     box-shadow: 5px 5px 5px grey;
 }
-div[group]:empty, div[groupv]:empty {
-    display: none;
+
+*[textFound="true"] {
+  outline: 1px solid #0F0;
+  background-color: #DFD;
+  border-top: 5px dotted green;
 }
+
+#zoomDiv *[textFound="true"] {
+  outline: inherit;
+  background-color: inherit;
+}
+
+
+*[textFound="false"],div[textFound="false"] { display:none; !important; }
+*[textFound="debug"],div[textFound="debug"] { background-color: #AAA; }
+
+/*
+div[group]:empty, div[groupv]:empty {
+  display: none;
+}
+*/
 
 *[groupv] {
    width: min-content;
@@ -335,21 +358,25 @@ div[group]:empty, div[groupv]:empty {
 }
 *[group] {
    display: inline-block; 
-   background: linear-gradient(to right, #FFF 33%, #AAA 100%);
+   background: linear-gradient(to right, #FFF 33%, #DDD 100%);
 /*   max-width: min-content; */
 }
 
-*[groupv] > *[zoom] { margin: 0 0.1rem 0 0.1rem; }
+*[groupv] > *[zoom] { margin: 0 0.1rem 0.2rem 0.1rem; }
 *[group]  > *[zoom] { margin: 0.2rem; }
 
 
 #divElementLabels {
   display: inline-block;
-  float: right;
   text-align: right;
   margin-top: 1rem;
+  opacity: 0.7;
+  max-width: 20em;
+  vertical-align: top;
+  background-color: #DDD;
+  padding-top: 1em;
+  border-radius: 1em;
 }
-
 
 #idLabelSearchAndMode {
     color: #0000CC;
@@ -375,26 +402,46 @@ span[labelcount] {
   font-weight: 400;
   font-style: normal;
   font-stretch: normal;
-  src: url('/source-code-pro/EOT/SourceCodePro-Regular.eot') format('embedded-opentype'),
-       url('/source-code-pro/WOFF2/TTF/SourceCodePro-Regular.ttf.woff2') format('woff2'),
-       url('/source-code-pro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
-       url('/source-code-pro/OTF/SourceCodePro-Regular.otf') format('opentype'),
-       url('/source-code-pro/TTF/SourceCodePro-Regular.ttf') format('truetype');
+  src: url('/IT_notes/source-code-pro/EOT/SourceCodePro-Regular.eot') format('embedded-opentype'),
+       url('/IT_notes/source-code-pro/WOFF2/TTF/SourceCodePro-Regular.ttf.woff2') format('woff2'),
+       url('/IT_notes/source-code-pro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
+       url('/IT_notes/source-code-pro/OTF/SourceCodePro-Regular.otf') format('opentype'),
+       url('/IT_notes/source-code-pro/TTF/SourceCodePro-Regular.ttf') format('truetype'),
+       ;
 }
 
-#hint01 { 
+#previewTop {
+  background: linear-gradient(to bottom, #F3F9A7 33%, #CAC531 100%);
+  padding: 1px 0 3px 0;
+  margin: 0;
   text-align: center;
-  display: inline-block;
-  color: #440;
-  font-size:0.5rem;
-  transition: transform .3s;  
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 }
-#hint01:hover { transform: scale(2.0); z-index: 10; background-color: #FFF }
+
+#closePreview {
+    position: absolute; right: 0; top: -1px;
+    float: right;
+    padding: 2px;
+    outline: 1px solid black;
+}
+
+/* WARN: We don't want cell's background colors
+ * for printed media, only screen displays  { */
+  *[bggray]   { background-color:gray   !important;}  
+  *[bgyellow] { background-color:yellow !important;}  
+  *[bgblue]   { background-color:#CCF   !important;}  
+  *[bgorange] { background-color:#FFDF5F!important;}  
+  *[bggreen]  { background-color:#AFA   !important;}  
+  *[bgbrown]  { background-color:#FFEBCD!important;}  
+  *[bgred]    { background-color:#FF8888!important;}  
+/* } */
 
 
-} /* media only screen */
+} /* }}} MEDIA ONLY SCREEN END  */
 
-@media (hover:none), (hover:on-demand) {
+@media (hover:none), (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
 /* 
  * ^^^ REF: https://stackoverflow.com/questions/11387805/media-query-to-detect-if-device-is-touchscreen 
  **/
@@ -409,6 +456,7 @@ span[labelcount] {
             -ms-user-select: none;    /* Internet Explorer/Edge */
                 user-select: none;    /* Non-prefixed version, currently
                                       supported by Chrome and Opera */
+
     }
 
     #zoomDiv [zoom] , #zoomDiv * [zoom], #zoomDiv * * [zoom], #zoomDiv * * * [zoom]
@@ -424,14 +472,22 @@ span[labelcount] {
     }
     body { font-size:32px; !important; }
   
-    *[xsmall] { font-size:0.9rem; }
-    *[small]  { font-size:1.0rem; }
+    *[xsmall], *[zoom] *[title] { font-size:0.9rem; }
     /* END   LONG-PRESS } */
+    #printButton,#hint01 { display: none; color:red; }
 
-    #hint01 { display: none; color:red; }
+    *[zoom] > not:span[title] { display: normal; !important; }
+
+    #zoomSlider, #loupe { display: none; }
+
+    *[group],*[groupv] {
+        max-width: initial;
+    }
+    *[group]  { width: 95%; }
+    *[groupv] { width: 45%; }
 }
 
-@media print {
+@media print { /* printed paper / "PDFs" */
   *[zoom] {
     page-break-after:always;
   }
@@ -460,7 +516,8 @@ span[labelcount] {
   *[textFound="false"] { display:none; }
 }
 
-@media all {
+@media all {  /* screen and paper */
+
 *[gray]     { color:gray   !important; } 
 *[yellow]   { color:#DD0   !important; } 
 *[blue]     { color:blue   !important; } 
@@ -468,8 +525,13 @@ span[labelcount] {
 *[green]    { color:green  !important; } 
 *[brown]    { color:brown  !important; } 
 *[red]      { color:red    !important; } 
-}
-
+ 
+/* cli (command-line-interface) allows to format text
+ * as computer-console output:
+ * Just wrap text inside <div cli> or similar.
+ * probably oneline alternative: $º$ ... º is simpler
+ * and more suitable when adding left/right comments.
+ * {{{ */
 *[cli] {
  /* clear: both; */
  /* box-sizing: border-box; */
@@ -505,8 +567,8 @@ span[labelcount] {
     line-height: 4px;
     */
 }
-
-.innerSearch { 
+/* }}} */
+.innerSearch,.innerLink { 
   display: inline;
   color:blue; 
 }
@@ -514,19 +576,4 @@ span[labelcount] {
 span[sub]   { vertical-align: sub  ; font-size:0.5em; letter-spacing: 0.6em; }
 span[super] { vertical-align: super; font-size:0.5em; letter-spacing: 0.6em; }
 
-
-#closePreview {
-    display: inline;
-    float: right;
-    margin: 2px;
-    padding: 2px;
-    outline: 1px solid black;
-}
-
-#previewTop {
-  background: linear-gradient(to bottom, #F3F9A7 33%, #CAC531 100%);
-  padding: 3px;
-  margin: 0;
-  text-align: center;
-  font-family: monospace;
-}
+} /*media all, screen and paper */
