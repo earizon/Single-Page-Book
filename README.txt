@@ -56,6 +56,25 @@
 
 ✓ Quick classification/search/heat-map using topics.
 
+✓ Designed to avoid the dangerous "UNKNOWN UNKNOWNS":
+  
+   KNOWLEDGE IN THEORY        KNOWLEDGE IN PRACTICE
+
+  ┌──────┬────────────┐     ┌──────┬────────────┬────────────────────────────·············
+  │What I│  What I    │     │What I│  What I    │  What I don't even                  
+  │ know │ don't know │     │ know │ don't know │  know that I don't know        
+  └──────┴────────────┘     └──────┴────────────┴────────────────────────────················
+                             ^^^^^^ ^^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        CONFORTABLE  SAFE-ZONE    "UNKNOWN UNKNOWNS" DANGER ZONE
+                               ZONE               (I don't search on Google because
+                                                   I ignore its existence)          
+                                                        ^
+                            ┌───────────────────────────┴────────────────┐
+                             SPB allows writers to put all content in the 
+                             front/home page to avoid readers ignore 
+                             important information they don't known that
+                             they don't know.
+
 ✓ Easy backup: Copy your files somewhere else. That's all!!!
 
 ✓ Customizable:
@@ -65,6 +84,19 @@
   one at page load).
     
 ✓ Offline navigation.
+
+✓ Documentation "best-patterns" approach:
+ ✓ Put related info close to each other.
+ 👊 Don't repeat twice. 
+ 👊 Don't keep information spread ("hidden") amongst hundred of emails,
+    posts, chats, words, ....
+ 👊 Don't use a powerful enterprise search engine to find the documents
+    you lost with random results. Do not loose the information in first
+    place and keep it clean and classified.
+ 👊 Don't use proprietary formats for important documentation: <br/>
+    HTML will be well supported in any electronic platform and by many
+    different working groups for always, propriertary formats will not.
+
 
 ┌──────────┐
 │ Gallery  │
@@ -97,9 +129,22 @@
 └──────────────────────┘
 • IA help system to automatically tag notes by topics.
 
-***********
-* Apropos *
-***********
+
+┌────────────────────┐
+│ SPB compared to ...│
+└────────────────────┘
+
+┌───────────────────┐
+│ Links of interest │
+└───────────────────┘
+• Advanced way to take notes
+  https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125
+
+
+┌─────────┐
+│ Apropos │
+└─────────┘
 • This is a hobby project with zero commercial support.
 • If you are interested on its development don't forget to star it on Github
   or contribute with pull-requests or bug-reports.
+
