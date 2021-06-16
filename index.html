@@ -1,28 +1,47 @@
 <html>
 <head>
    <meta charset="UTF-8">
-   <link rel="stylesheet" type="text/css" href="/SPB/map_v1.css" />
+   <!--   <link rel="stylesheet" type="text/css" href="/SPB/map_v1.css" /> -->
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
 <style>
-h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; 
-}
-body { 
+h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; }
+h1,h2 { color : orange; }
+h1 { font-size: 1.2em; } 
+h2 { font-size: 1.1em; } 
+body {
+  font-family: 'Muli',sans-serif;
+  font-size: 20px;
   max-width: 90em;
   margin-left:3%;
-  padding-left:1rem;
+  padding-left:2rem;
   padding-right:1rem;
   padding-top:1rem;
   box-shadow: -10px 0px 10px 10px #aaaaaa; 
 }
 *[green] {background-color: #AFA; text-align:center; }
 *[red]   {background-color: #FAA; text-align:center; }
-td { width: 10em; }
+/* *[right] {text-align: right; } */
+th, td { width: 10em; max-width: 10em; vertical-align: middle; padding: 0.1em; font-size:0.9em; }
+#table_comparative_container { text-align: center;  }
+#table_comparative { display: inline-block; box-shadow: 0 0 10px #555; width:min-content;}
+
+@media (hover:none), (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
+  body { 
+    font-size: 24px;
+  }
+  th, td { font-size: 12px; }
+}
 </style>
 </head>
 <body>
-    For a brief introduction to the SPB project <a href="https://raw.githubusercontent.com/SinglePageBookProject/SPB/master/README.txt" target="_blank">read this document</a>.
 
-<h2>SPB compared to:</h2>
-<table id="comparative">
+<div id="table_comparative_container">
+<span style="font-size:0.7em">
+    (For a quick introduction to the SPB project read <a href="./README.html" target="_blank">&gt;this document&lt;</a>).<br/>
+</span>
+
+<table id="table_comparative">
 <tr> <th colspan=3>                              </th><th>    SPB     </th><th>Evernotes  </th><th>WordPress  </th><th>PowerPoint </th> </tr>
 <tr> <td colspan=3>Information belongs to        </td><td green>you   </td><td   red>app  </td><td   red>app  </td><td   red>app  </td> </tr>
 <tr> <td colspan=3>Web Friendly                  </td><td green>YES   </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
@@ -30,99 +49,157 @@ td { width: 10em; }
 <tr> <td colspan=3>Zettlekasten friendly         </td><td green>YES   </td><td green>YES  </td><td   red>NO   </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Needs external DDBB           </td><td green>NO    </td><td green>NO   </td><td   red>YES  </td><td green>NO   </td> </tr>
 <tr> <td colspan=3>Needs server maintenance      </td><td green>NO    </td><td green>NO   </td><td   red>YES  </td><td green>NO   </td> </tr>
-<tr> <td colspan=3>git (team work) friendly      </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Advanced Version Control      </td><td green>git   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>git (advanced distributed team collaboration) friendly      
+                                                 </td><td green>YES   </td><td   red>NO   </td><td green>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>diagram (engineering) friendly</td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td green>YES<sup>*1</sup></td> </tr>
 <tr> <td colspan=3>works Offline                 </td><td green>YES   </td><td green>YES  </td><td   red>NO   </td><td green>YES  </td> </tr>
 <tr> <td colspan=3>Search by text                </td><td green>YES   </td><td green>YES  </td><td green>YES  </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Search by topic               </td><td green>YES   </td><td green>YES  </td><td green>YES? </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Search by id                  </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Search by text and topic      </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Save search as bookmark       </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>All content one click away    </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Proximity map                 </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Fast preview                  </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>e-commerce/SEO plugins        </td><td   red>NO    </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Zoom in/out Map view          </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Print     book                </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Print to  book                </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
 <tr> <td colspan=3>Print sub-book                </td><td green>YES   </td><td   red>NO   </td><td green>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>friendly to diagrams          </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td green>YES*1</td> </tr>
-<tr> <td colspan=3>Cool interface                </td><td   red>YES/NO</td><td green>YES  </td><td green>YES  </td><td green>YES  </td> </tr>
+<tr> <td colspan=3>WYSIWYG  Interface            </td><td   red>NO    </td><td green>YES  </td><td green>YES  </td><td green>YES  </td> </tr>
+<tr> <td colspan=3>Quick edit interface          </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=10>
+<div style="text-align: left;">
+  <b>*1</b>  But a million times less usable than those in SPB<br/>
+</div>
+     </td>
+</tr>
 </table>
-*1  But a million times less usable than those in SPB<br/>
-*2  YES for read, NO for editing (unless you like text editors)
+<br/>
+</div>
 
+<h2 id="title01">SPB compared to ...</h2>
 <ul>
-    <li><b>Note taking apps like Evernote:</b><br/>
-        Evernote (and others) are high-level user visual apps.
-        They use some form of propietary database format
-        to store the content and propietary services to synchronize the
-        content. <br/>
-        On the other side SPB follows the philosophy that the database formal
-        must be as simple as possible. Actually is plain HTML (that's, text files).
-        This makes of it a much less friendly app for newcomers, but allows
-        to reuse many powerful tools like existing text editors, or
-        synchronization mechanisms.<br/>
-        The application itself reduces to the embedded JavaScript.<br/> 
-        It also allows for "complex" things like embedding SVG images,
-        videos, iframes or any other technology supported by modern browsers,
-        or extend it with standard JavaScript.<br/>
-        SPBs <b>can be embedded/integrated with easy in existing Web sites, Evernotes can NOT</b>.
-        <br/>
-        Since version 1.1 <b>SPBs allows to create printed books (or sub-books) of the content</b>,
-        again by just profiting from standard CSS technology in any modern browser.
-        <br/>
-        <b>SPBs allows for collaborative work and version control through systems like
-            Git, Evernotes doesn't.</b>
-        <br/>
-        Probably "normal" users will be happy enough with Evernote while
-        advanced users who feel comfortable with text editors and git
-        and/or wants to enhance the power of their web-sites will prefer the
-        SPB format.<br/>
-   </li>
-   <li><b>PowerPoint presentations</b><br/>
-       Metaphorically speaking, if <b>Power Point is an Apple Store of documentation 
-       in Fifth Avenue</b> where iphones are sold, <b>the SPB is the Apple 
-       factory in Asia</b> where document information is stored, assembled and tested.<br/>
-   </li>
-   <li><b><a hre="https://learnxinyminutes.com/" target="_new">Learn X in Y Minutes</a></b>
-       "alike" sites.<br/>
-       Learn X in Y minutes (and others like <a href="https://cheat.sh">cheat.sh</a>)
-       have surged to create a "learn-fast" path for newcomers. They make a great
-       job for what they have been designed. Still they will fail once we try
-       to get deeper into any complex technology and they don't provide tooling
-       like "search-by-topic" in SPB. Learning data-science or IA or modern
-       language programming is not about one cheat-sheet, but about many 
-       inter-related ones.<br/>
-       SPB can be used to create a better "learn X in Y minutes". <br/>
-       This is how learn x in y minutes :
-       <a href="https://learnxinyminutes.com/docs/java/" target="_new">presents java to newcomers</a> and this is how SPB 
-       <a href="http://www.oficina24x7.com/JAVA/java_map.html" target="_new">presents java to newcomers and seniors developers</a>
-   </li>
-   <li><b>Zettelkasten knowledge and info management</b>.<br/>
-       <a href="https://www.qwant.com/?q=Zettelkastenw&t=web">Zettlekasten</a> follows a set of
-       patterns for advanced documentation and note-taking.<br/>
-       Actually SPB do not compares to, but can be used as a way for "Zettelkasten"ing.<br/>
-       Some tools have been developed for Zettelkasten. With SPB, the tool is your browser!.<br/>
-       Actually "Zettelkasten"ers looks to like the SPB format according to
-       <a href="https://www.reddit.com/r/Zettelkasten/">some comments in reddit</a>.
-   </li>
-   <li><b>Content Management Systems (CMS)</b>.<br/>
-         A CMS is an application running 24x7 in a server "somewhere in the Internet".<br/>
-       The SPB is NOT a server or any other type of software, just plain HTML (OK, and 
-       some spots of JavaScript and CSS). <br/>
-         The content on a CMS is stored in a central database running also "somewhere in the Internet"<br/>
-       The content on a SPB is the HTML file in your local hard-disk. Since it's HTML (plain text)
-       you can use some tool like git to put on a central or distributed system (and branch, fork or
-       collaborate with your team). <br/>
-        CMS is more user-friendly ... once you have a server running 24x7, and some CMS
-       admin is out there to "keep it alive" and the network is up and there are backups in 
-       place and users agree of common usage pattern, and someone/somebody takes charge of 
-       cleaning repeated information and same topics are used by anyone, and users are notified
-       of other users changes ... and users don't get used to think that the CMS is a place
-       to "pile" random word and powerpoint files and care is taken to avoid repeated content 
-       in different places (or even worse, different versions of the same content anywhere)
-       OK, you know, CMS most of the times does not work as planned. 
-       It requires lot of attention and discipline by end users (and CMS administrators).<br/>
-   </li>
-   <li><b>Wikis</b>.<br/>
+<li>
+<h2 right>... advanced note-taking apps (Evernote, ...)</h2>
+  <p>
+    Evernote (and others) are friendly visual apps targeting any type
+    of user. Those apps use some form of propietary database format
+    to store the content and propietary services to synchronize it.
+  </p>
+  <p>
+     On the other side SPB follows the philosophy that the <b>storage format
+    must be as simple and safe as possible</b> to be sure 10 years from now we
+    have zero problems to recover the information written inside or copy/export
+    it to a different device or platform. <br/>
+      The internal format of SPB is HTML (plain-text mixed with plain-text tags).<br/>
+    (It takes a couple of hours to master the basics of HTML, and then you can
+    use it for the rest of your life).<br/>
+      Even in the abscence of a web-browser the documentation in an HTML SPB
+    project can be consulted with text editor like Notepad, vim, Ultraedit or
+    Word and transformed with easy to other formats.<br/>
+    This is how a "Notes on Java" SPB
+    <a href="https://singlepagebookproject.github.io/IT_notes/JAVA/java_map.html?showSearchMenu=true" target="_blank">looks like</a>,
+    and this is how its corresponding text/HTML internal source format
+    <a href="https://raw.githubusercontent.com/SinglePageBookProject/IT_notes/master/JAVA/java_map.html" target="_blank">looks like</a>.<br/>
+      If some hardware error corrupts the HTML file, much of information can
+    still be recovered. This is mostly impossible with binary propietary formats.<br/>
+  </p>
+  <p>
+      Editing content with HTML (vs WYSIWYG note-taking apps) is less friendly
+    for newcomers, but it's (much) faster once used to the minimal HTML syntax,  
+    specially once we get used to some of the many powerful free and commercial
+    tools available on the wild. The adquired HTML knowledge gained while editing
+    SPB documentation, is also reusable in many other contexts like e-commerce,
+    or digital publishing.<br/>
+     Also by using standard HTML, SPB documents can also integrated with easy with any
+    other HTML content, for example, allowing to add to
+    <a href="https://observablehq.com/@d3/gallery" target="_blank">business-charts</a>,
+    auto-generated HTML reporting outputs, video content, ... .<br/>
+      <b>This is not possible with propieratry tools/formats</b>.
+  </p>
+  <p>
+    Since version 1.1 <b>SPBs allows to create printed books (or sub-books) of the content</b>,
+    again by just profiting from standard (CSS) technology in modern browsers.
+  </p>
+  <p>
+     HTML formats allows also to share the information as e-mail or chat attachments,
+    or integrate into distributed (high-tolerant to hardware&amp;network failures)
+    version control systems  like Git and collaborative distributed work  Evernotes
+    doesn't.  <b>This is not possible with propieratry tools/formats</b>.
+  </p>
+  <br/>
+  <p>
+    Probably "normal" users will be happy enough with apps like Evernote, but
+    once they want something more "advanced" and gain control, they will prefer
+    the power of standard Web technologies like SPB.
+  </p>
+</li>
+<li>
+  <h2 right>... PowerPoint presentations:</h2>
+  <p>
+    Metaphorically speaking, if <b>Power Point is an Apple Store of documentation 
+  in Fifth Avenue</b> where i-Phones are sold, <b>the SPB is the Apple 
+  factory in Asia</b> where document information is stored, assembled and tested.<br/>
+  </p>
+  <p>
+  <ul>
+    <li>From the writer's point of view, quick (1-hours) presentations can be done
+        on Power Point. Storing the knowledge acquired over the years in different
+        interrelated topics requires "something else". SPB is this "something else".
+    </li>
+    <li> From the reader point-of-view, a Power Point can be enough to put attention,
+         then an SPB will be needed to make sensible decisions.
+    </li>
+  </ul>
+  </p>
+</li>
+<li>
+  <h2 right>... Learn X in Y Minutes (<a href="https://learnxinyminutes.com/" target="_new">Link</a>):</h2>
+    Learn X in Y minutes (and related ones like <a href="https://cheat.sh">cheat.sh</a>,
+    <a href="https://github.com/undergroundwires?tab=repositories&q=bullet&type=&language=">
+        "bullet points"</a>, ...) have surged to create a "learn-fast" path for newcomers
+    with few free time.<br/>
+    <b>They make a great job for what they have been designed. </b>
+      Still such projects fall short once we try to get deeper since there is no
+     easy way to relate growing information in different places.<br/> 
+      Learning data-science or IA or modern language programming is not 
+    about one cheat-sheet, but about many inter-related ones.<br/>
+    SPB can be used to create extended "learn X in Y minutes" covering the
+    basics, the details, and the ecosystem around, and making all the information
+    easier to retrieve. <br/>
+    This is how "learn-x-in-y-minutes"
+    <a href="https://learnxinyminutes.com/docs/java/" target="_new">presents java to newcomers</a> and this is how SPB 
+    <a href="http://www.oficina24x7.com/JAVA/java_map.html" target="_new">presents java to newcomers and seniors developers</a>.
+<li>
+  <h2 right>... Zettelkasten knowledge and info management:</h2>
+    <a href="https://www.qwant.com/?q=Zettelkastenw&t=web">Zettlekasten</a> follows a set of
+    patterns for advanced documentation and note-taking.<br/>
+    Actually SPB do not compares to, but can be used as a way for "Zettelkasten"ing.<br/>
+    Some tools have been developed for Zettelkasten. With SPB, the tool is your browser!.<br/>
+    Actually "Zettelkasten"ers looks to like the SPB format according to
+    <a href="https://www.reddit.com/r/Zettelkasten/">some comments in reddit</a>.
+</li>
+<li>
+<h2 right>... Content Management Systems (CMS):</h2>
+    A CMS is an application running 24x7 in a server "somewhere in the Internet".<br/>
+  The SPB is NOT a server or any other type of software, just plain HTML (OK, and 
+  some spots of JavaScript and CSS). <br/>
+    The content on a CMS is stored in a central database running also "somewhere in the Internet"<br/>
+  The content on a SPB is the HTML file in your local hard-disk. Since it's HTML (plain text)
+  you can use some tool like git to put on a central or distributed system (and branch, fork or
+  collaborate with your team). <br/>
+   CMS is more user-friendly ... once you have a server running 24x7, and some CMS
+  admin is out there to "keep it alive" and the network is up and there are backups in 
+  place and users agree of common usage pattern, and someone/somebody takes charge of 
+  cleaning repeated information and same topics are used by anyone, and users are notified
+  of other users changes ... and users don't get used to think that the CMS is a place
+  to "pile" random word and powerpoint files and care is taken to avoid repeated content 
+  in different places (or even worse, different versions of the same content anywhere)
+  OK, you know, CMS most of the times does not work as planned. 
+  It requires lot of attention and discipline by end users (and CMS administrators).<br/>
+
+</li>
+<li>
+<h2 right>... Wikis:</h2>
        SPB can be seen as a lightweight Wiki. Actually Wikis can be seen as lightweight CMSs.<br/>
        A Wiki usually also need a server running 24x7 and Wiki operators to maintain it.<br/>
        Similar advantages / disadvantages than in the CMS should apply. Actually the Wikipedia
@@ -131,55 +208,89 @@ td { width: 10em; }
        alive" and the network is up and there are backups in place and users agree of 
        common usage pattern, and someone/somebody takes charge of cleaning repeated 
        information and same topics are used by anyone,
-   </li>
+</li>
+<li>
+<h2 right>... Plain TXT files:</h2>
+  Important things (those that affects thousands of millions of people every day) 
+  are <a target="_new" href="https://tools.ietf.org/html/rfc793">written down in txt</a>. <br/>
+  HTML and by extension SPB, also likes txt. Just put your important staft inside
+  &lt;pre zoom&gt; tags (pre: pre-formatted).
+</li>
+<li>
+<h2 right>... Canvas like boards:</h2>
+  With some minor training on how to layout elements, SPB can also be used as a 
+  simple canvas-like application (and again, being pure HTML/txt, you can profit from
+  all the "goodies" of git to version or branch your project canvas).<br/>
+  With good programming skills it can also be used as a complex canvas-like board,
+  by just rendering the HTML "somehow" from a remote server.</li>
+</li>
+<li>
+<h2 right>... Git to WiKi like systems:</h2>
+  As of 2021 more companies are realizing about the 
+ advantages of using the git-to-wiki approach to replace complex CMS with their
+ internal complex databases. (historical note: SPB is more than 3 years ahead 
+ of them).<br/>
+ <a href="https://www.infoq.com/news/2021/01/yari-mdn-new-doc-platform/" target="_new">
+   This link</a> explains how Mozilla has changed its SQL database for a 
+ git repository to maintain its documentation and how such change
+ has permitted to increase the number of potential contributors, simplified
+ the infrastructure and maintenance of the system.<br/>
+    The main difference is that a SPB is a final solution, while most
+ git-to-wiki systems still need some type of setup and extra setup steps to
+ transform content in git to a final HTML content.<br/>
+   git-to-wiki is a better approach when hundreds or thousands of writers
+ are expected on the same document, while SPB (a single HTML file) is simpler when
+ just a few writers work together.<br/>
+   Advanced users with some minimal script experience (bash, python,...), can 
+ also generate SPBs as the output of a batch or script execution to have all the
+ advantages of git-to-wiki systems for free, while normal users just need to expend
+ a couple of hours learning the basics of HTML.<br/>
+</li>
+<li>
+<h2 right>... Issue and Project Tracking Software (JIRA):</h2>
+     SPB was not designed with the intention of creating a project-tracking software.
+   Nevertheless daily ussage probes that it offers a light platform to track
+   projects, issues or deadlines <a href="./demo_project_tracker.html" target="_blank">
+   with little effort</a> by just choosing the appropiate topics to classify the
+   content.<br/>
+    Using SPB avoid set-up and maintenance of complex infrastructure
+   (again, no need for databases and JIRA servers running and serving request)
+   and gets rid of opinionated workflows and data internal opaque schemas (just look
+   at the <a href="https://singlepagebookproject.github.io/IT_notes/ProjectManagement/map.html?topics=diagram&query=jira.summary" target="_blank">
+   Entity-relationship internals of JIRA</a>) that many times stand in they
+   way instead of helping to manage projects. <br/>
+     Of course, integration of the Tracking Software with the Content Managament
+   System is straightforward (actually it can be the same document) and so it
+   is integration with Git. Just as a reference, <b>the plugin to make the JIRA project
+   tracking system integrate with the Confluence tracking system is larger than
+   the full Javascript code used in SPB. On top of that JIRA and Confluence
+   need one or more servers running a SQL database, a 1Gigabyte JAVA SDK, and 
+   two separate processes for JIRA and Confluence, each of them running "many" parallel
+   threads, even before starting to write a single ticket.</b>
+     Tracking systems like JIRA do not ussualy provide a clean mechanism to check
+   "who-changed-what", something that makes <b>tracking other people's progress very
+   problematic and cumbersome</b>.<br/>
+    By contract, when using SPB, we let Git track changes:<br/>
+    <b>Git provides to documentation the same service that blockchain provides to money</b>.
+   It keep a trace of all changes and how a given data (some note in git, some
+   account balance in blockchain) evolved over time to arrive to the current state.
+   It's used by all major software companies (Google, Microsoft, IBM, Amazon, ...) 
+   to track their most valuable assets, source-code. <br/>
+     Most probably you are reading this page in github, a git hosting service frequently
+   used to track documentation.
 
-   <li><b>Plain  TXT and "Notepad" note taking</b><br/>
-       Important things (those that affects thousands of millions of people every day) 
-       are <a target="_new" href="https://tools.ietf.org/html/rfc793">written down in txt</a>. <br/>
-       HTML and by extension SPB, also likes txt. Just put your important staft inside
-       &lt;pre zoom&gt; tags (pre: pre-formatted).
-   </li>
-
-   <li><b>Canvas like boards</b><br/>
-       With some minor training on how to layout elements, SPB can also be used as a 
-       simple canvas-like application (and again, being pure HTML/txt, you can profit from
-       all the "goodies" of git to version or branch your project canvas).<br/>
-       With good programming skills it can also be used as a complex canvas-like board,
-       by just rendering the HTML "somehow" from a remote server.</li>
-
-   <li>Git to WiKi like systems. As of 2021 more companies are realizing about the 
-       advantages of using the git-to-wiki approach to replace complex CMS with their
-       internal complex databases. (historical note: SPB is 3+ years ahead of them).
-       The main difference is that a SPB is a final result, while most git-to-wiki
-       systems still need some type of setup and not-so-complex devops pipelines to
-       transform content in git to HTML content. The advantage is that it makes much
-       easier to collaborate for "big" number of users in a same content.
-       See next article as a refence on how Mozilla has changed its database for a 
-       git repository to simplify its documentation pipeline:
-       <a href="https://www.infoq.com/news/2021/01/yari-mdn-new-doc-platform/" target="_new">
-         https://www.infoq.com/news/2021/01/yari-mdn-new-doc-platform/ 
-       </a>
-       Probably this is the best approach for "huge" documentation projects with
-       potentially thousands of users collaborating in related content, while SPB 
-       is better for free riders and small workgroups.
-   </li>
+   <div style="margin:1em 0 0 2em; outline: 1px solid grey; padding: 1em;">
+     <b>Author's Personal note</b>: I still have nightmares with a old project 
+   where the scrum "master" liked to play with JIRA customizing it in a millions
+   of non-standard ways that only he was aware of using magic (and useless) 
+   plugins.<br/>
+     Worst at all, the system was constantly down or irresponsive. And <b>this
+   complex structure and buggy solution was used to update just about 2-3 tickets
+   per week per user on average</b>. <br/>
+   </div>
+   <br/>
+   <br/>
+</li>
 </ul>
-
-<h2>Digging into SPB</h2>
-  SPB profits from all the excellent work invested in modern
-  Web Browsers to provide static and dynamic content:<br/>
-  A modern browser can parse and render tens of megabytes of HTML per second,
-  and Internet connection is fast enough to play video, so loading page-by-page
-  does not make sense anymore.  The cost of a new page requests is much higher
-  than the cost of keeping everything in memory.  Also offline navigation comes for
-  free.
-  <br/>
-   Current web sites (and electronic book formats) follow the page-by-page
-  inherited from printed-paper. Actually being able to zoom in/out "a la Google
-  Maps" provides a much comfortable UI in electronic devices. Starting from a zoom-out
-  and arranging content properly provides a mind-map of the information for free.
-  <br/>
-  In practice a SPB book is just a single web page profiting from a thoroughly 
-  designed CSS and some helper JavaScript.<br/>
 </body>
 </html>
