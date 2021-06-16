@@ -16,7 +16,7 @@ body {
   font-size:16px;  /* overrided in mobile */
   padding: 0;
   margin: 0;
-  line-height:1.1;
+  line-height:1.0;
   background-color:#EEE;
   margin-left: 0.5rem; /* must match inverted upper_bar.margin-left*/
   padding-top: 3rem;
@@ -48,7 +48,6 @@ body {
    box-shadow: 0 0 10px black;
    background-color: #FFE;
    transition: width 1s;
-   max-height: 30rem;
 }
 #searchAndMode { margin-bottom: 0.7em; }
 
@@ -285,7 +284,7 @@ hr {
 
 
 
-#divClose, #doSearchButton, #unhide, 
+#divClose, #unhide, 
 #butSwitchLectureMode, #textSizeSlider, #cellIDPanell {
     font-size:1.1rem;
     color:blue;
@@ -319,7 +318,7 @@ hr {
 #textSizeSlider {
     vertical-align: text-top;
 }
-#doSearchButton, #unhide { float: right; width: auto; }
+#unhide { float: right; width: auto; }
                  #unhide { margin-right:0.5em; }
 
 #historyBackFor {
@@ -436,10 +435,16 @@ span[labelcount] {
 /* } */
 
 .labelBlock { margin-bottom: 0.2em }
+
 .labelBlockTitle {
+    display: inline-block;
+    width: 10em;
+    border-bottom: 1px solid black;
+/*
    margin: -0.4em 0 0.2em 0;
    padding: 0 1em 0 0;
    width: min-content;
+*/
 }
 
 } /* }}} MEDIA ONLY SCREEN END  */
@@ -488,6 +493,10 @@ span[labelcount] {
     }
     *[group]  { width: 95%; }
     *[groupv] { width: 45%; }
+
+    #searchForm  { 
+       max-height: 20rem;
+    }
 }
 
 @media print { /* printed paper / "PDFs" */
