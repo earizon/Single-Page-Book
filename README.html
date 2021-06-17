@@ -1,0 +1,202 @@
+<html>
+<head>
+   <meta charset="UTF-8">
+<style>
+h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; 
+}
+body { 
+  max-width: 90em;
+  margin-left:3%;
+  padding-left:1rem;
+  padding-right:1rem;
+  padding-top:1rem;
+  box-shadow: -10px 0px 10px 10px #aaaaaa; 
+}
+*[green] {background-color: #AFA; text-align:center; }
+*[red]   {background-color: #FAA; text-align:center; }
+td { width: 10em; }
+pre { font-size: 1.2em; }
+</style>
+</head>
+<body>
+<h1>About SPB </h1>
+<ul>
+    <li>SPB stands for Single Page Book. It aims at unifying books,
+       mind-maps and cheat-sheet contents creation in a single web page
+       that can be created and updated "a la Zettelkasten" 
+       <sup>
+         <a href="https://medium.com/emvi/luhmanns-zettelkasten-a-productivity-tool-that-works-like-your-brain-abe2d53a2948" target="_new">1</a>,
+         <a href="https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125" target="_new">2</a>
+       </sup>
+       <b>to keep notes organized and improving throughout years/decades</b> that
+       can also be navigated "a la Google Maps".
+    </li>
+    <li>SPB offers a pragmatical replacement for "heavy-weight"
+       Content Management Systems running on complex server setups,
+       by using just pure HTML/CSS consumed by web-browsers running
+       on a laptop or mobile.
+    </li>
+    <li>Content data is moved from "always online" databases
+      to plain <b>safe HTML files</b> easy to manage and backup without
+      complex IT administration skills.
+    </li>
+    <li>Extra information about How SPB compares with some other content 
+        publication and management tools can be read <a href="./index.html">here</a>.
+    </li>
+</ul>
+
+<h1>Use-cases</h1>
+<ul>
+  <li>Advanced notebooks</li>
+  <li>Cheat-sheets with steroids.</li>
+  <li>"Ever growing" mind-maps (make them evolve the way your brain like it).</li>
+  <li>Brain-to-brain synchronization: make multiple brains work like a team.</li>
+  <li>Project management, canvas and issue-track management.</li>
+  <li>"Light" weight database.</li>
+  <li>(add your own here)</li>
+</ul>
+
+<h1>Micro "How-To"</h1>
+<ol>
+    <li>Install a light-weight web (HTML) server on your PC.<br/>
+        An simple way is to <a href="https://www.python.org/downloads/">download</a>
+       and install python 3. Then from the terminal (Linux/Mac) or the command
+       prompt (Windows) execute next 3 commands and press Enter key( ⏎ ) to confirm.
+       <pre>
+Command to execute:                             Explanation
+C:\users\myUser > mkdir project01⏎              ← [m]a[k]e (or create) new [dir]ectory
+                                                where the page will be stored
+                                            
+C:\users\myUser > cd    project01⏎             ← [c]hange [d]irectory
+
+C:\users\myUser > python3 -m http.server⏎      ← Execute <b>safe</b> web server pointing
+                                                (only our computer will be able to
+                                                 access the content server)
+       </pre>
+    </li>
+    <li>Copy next files to the directory where pages will be placed:
+        <pre>
+        <a href="https://raw.githubusercontent.com/SinglePageBookProject/SPB/master/map_template.html">map_template.html</a>
+        <a href="https://raw.githubusercontent.com/SinglePageBookProject/SPB/master/map_v1.css">map_v1.css</a>
+        <a href="https://raw.githubusercontent.com/SinglePageBookProject/SPB/master/map_v1.js">map_v1.js</a>
+        <a href="https://raw.githubusercontent.com/SinglePageBookProject/SPB/master/custom.js">custom.js</a>
+        </pre>
+        Rename <b>map_template.html</b> to provide a sensible name. All others files just need to be 
+        downloaded once. They will be reused again and again.<br/>
+        <b>"map_v1.js"</b> contains the minimum Javascript code used to navigate and react 
+        to user actions.<br/>
+        <b>"map_v1.css"</b> contains the Cascading Style Sheets to "beautify" the content.<br/>
+        <b>"custom.js"</b> allows advanced customization. Just leave it next to the other files
+        and forget.
+    </li>
+</ol>
+
+
+<h1>Features</h1>
+<ul>
+    <li>✓ No coding skills needed, just familiarity with HTML.</li>
+    <li>✓ Navigate notes "a la Google maps" by zooming in/out, or 
+        "a la Zettlekasten way" by showing related notes by topic and/or direct-link.
+    </li>
+    <li>✓ distributed team workflows supported through Git
+         (rollbacks, pull requests, versioning, branching, ...)
+    </li>
+    <li>✓ Print to paper support:
+      print-paper CSS support, useful for first-lectures (start-to-end) of content
+      Ex: Two views of the same content:
+      -  Map: https://singlepagebookproject.github.io/IT_notes/Blockchain/ethereum_map.html
+      - book: http://www.oficina24x7.com/Blockchain/ethereum_map.pdf
+    </li>
+    <li>✓ All information available one click away, and related pages can be
+         displayed close to each other.
+    </li>
+    <li>✓ save searchs/sub-books classified by by-topic/text as URL bookmarks.
+    </li>
+    <li>✓ Quick classification/search/heat-map using topics.</li>
+    <li> ✓ Designed to <b>avoid the dangerous "UNKNOWN UNKNOWNS"</b>:<br/>
+         SPB is designed to show all related information as close as possible to 
+         each other as to avoid missing unknown-unknowns. <br/>
+          As an example, this is how Google presents QA (Quality Assurance) when
+          search for <a href="https://www.google.com/search?q=java+qa" target="_blank">
+          JAVA QA related results</a> and this is how SPB presents the same
+          <a href="https://singlepagebookproject.github.io/IT_notes/JAVA/java_map.html?topics=qa"
+             target="_blank">JAVA QA related results</a>.<br/>
+         <b>Even if Google has access to millions of different pages, it tends to
+             be biased toward just an very small subset of content</b>. In particular,
+         that related to automated acceptance tests.<br/>
+           This probably explain why Java newbies guided by Google results tend to
+         do buggy JAVA applications and, since Google page-rank favors most linked 
+         pages the biased search mechanism feeds ad infinitum. <br/>
+           SPB JAVA notes, manually collected&amp; classified throughout the time,
+         will always present all QA related information with no bias. 
+           There are no reasons to suppose that automated testing is less or 
+         more imporant than other QA topics related to async programming, internal 
+         data collection management or persistence tools. By presenting them all 
+         in parallel we decrease the danger of unknown-unknowns.
+      </pre> 
+    </li>
+    <li>✓ Easy backup: Copy your files somewhere else, attach to an e-mail, That's all!!!
+    </li>
+    <li>✓ Offline navigation.</li>
+    <li>✓ Documentation "best-patterns" approach:<br/>
+      <ul>
+        <li> 👊 Put related info close to each other.</li>
+        <li> 👊 Don't repeat twice. </li>
+        <li> 👊 Don't keep information spread ("hidden") amongst hundred of emails,
+           posts, chats, words, ....  </li>
+        <li> 👊 Don't use a powerful enterprise search engine to find the documents
+        you lost with random results. Do not loose the information in first
+        place and keep it clean and classified.
+        </li>
+        <li> 👊 Don't use proprietary formats for important documentation: <br/>
+        HTML will be well supported in any electronic platform and by many
+        different working groups for always, proprietary formats will not.
+        </li>
+      </ul>
+    </li>
+</ul>
+
+
+<h1>Gallery of SPB Books</h1>
+<ul>
+    <li><a target="_new" href="https://singlepagebookproject.github.io/IT_notes/General/cryptography_map.html">
+       Book/Mind-Map on cryptography</a></li>
+    </li>
+    <li><a target="_new" href="https://singlepagebookproject.github.io/IT_notes/WebTechnologies/map.html">
+       Book/Mind-Map on Web technologies</a></li>
+    <li><a target="_new" href="https://singlepagebookproject.github.io/IT_notes/DevOps/linux_administration_summary.html">
+       Book/Mind-Map on Linux administration</a></li>
+    </li>
+    <li><a target="_new" href="demo_project_tracker.html">SPB as a project tracker</a></li>
+</ul>
+
+
+<h1>Planned Features</h1>
+<ul>
+  <li>Predefined documentation topics (TODO, draft, important, review,
+      1min/10min/... lecture time,...)</li>
+  <li>minimal WYSIWYG support for newcomers.</li>
+  <li>Enhanced support for topics providing best pattern to topic/ontology c  </li>
+  <li>Allow to reuse third party ontologies already developed
+      by experts to classify content.</li>
+  <li>Better support for diagrams using Mermaid.</li>
+  <li>Advanced "nearby" algorithms to search for related content.</li>
+  <li> </li>
+</ul>
+<h1>Planned (far) Features</h1>
+<ul>
+  <li>IA help system to automatically tag notes by topics.</li>
+</ul>
+
+
+  
+<h1>Apropos</h1>
+<ul>
+  <li>This is a hobby project with zero commercial support. </li>
+  <li>If you are interested on its development don't forget to star it on Github
+    or contribute with pull-requests or bug-reports.
+  </li>
+</ul>
+
+</body>
+<
