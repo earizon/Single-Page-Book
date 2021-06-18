@@ -4,6 +4,7 @@
    <!--   <link rel="stylesheet" type="text/css" href="/SPB/map_v1.css" /> -->
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+  <meta name="keywords" content="cms,comparative,wordpress,sharepoint,confluence,spb">
 <style>
 h1, h2, h3, body { font-family: sans-serif; /*text-shadow: 0px 0px 1px #555;*/ line-height:1.4; }
 h1,h2 { color : orange; }
@@ -22,9 +23,10 @@ body {
 *[green] {background-color: #AFA; text-align:center; }
 *[red]   {background-color: #FAA; text-align:center; }
 /* *[right] {text-align: right; } */
-th, td { width: 10em; max-width: 10em; vertical-align: middle; padding: 0.1em; font-size:0.9em; }
+th, td { witdh: content-max; vertical-align: middle; padding: 0.1em; font-size:0.9em; }
 #table_comparative_container { text-align: center;  }
 #table_comparative { display: inline-block; box-shadow: 0 0 10px #555; width:min-content;}
+tr { outline: 1px solid black; }
 
 @media (hover:none), (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
   body { 
@@ -42,35 +44,49 @@ th, td { width: 10em; max-width: 10em; vertical-align: middle; padding: 0.1em; f
 </span>
 
 <table id="table_comparative">
-<tr> <th colspan=3>                              </th><th>    SPB     </th><th>Evernotes  </th><th>WordPress  </th><th>PowerPoint </th> </tr>
-<tr> <td colspan=3>Information belongs to        </td><td green>you   </td><td   red>app  </td><td   red>app  </td><td   red>app  </td> </tr>
-<tr> <td colspan=3>Web Friendly                  </td><td green>YES   </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Standard/Non propietary format</td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Zettlekasten friendly         </td><td green>YES   </td><td green>YES  </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Needs external DDBB           </td><td green>NO    </td><td green>NO   </td><td   red>YES  </td><td green>NO   </td> </tr>
-<tr> <td colspan=3>Needs server maintenance      </td><td green>NO    </td><td green>NO   </td><td   red>YES  </td><td green>NO   </td> </tr>
-<tr> <td colspan=3>git (advanced distributed team collaboration) friendly      
-                                                 </td><td green>YES   </td><td   red>NO   </td><td green>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>diagram (engineering) friendly</td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td green>YES<sup>*1</sup></td> </tr>
-<tr> <td colspan=3>works Offline                 </td><td green>YES   </td><td green>YES  </td><td   red>NO   </td><td green>YES  </td> </tr>
-<tr> <td colspan=3>Search by text                </td><td green>YES   </td><td green>YES  </td><td green>YES  </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Search by topic               </td><td green>YES   </td><td green>YES  </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Search by id                  </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Search by text and topic      </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Save search as bookmark       </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Proximity map                 </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Fast preview                  </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>e-commerce/SEO plugins        </td><td   red>NO    </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Zoom in/out Map view          </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Print to  book                </td><td green>YES   </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>Print sub-book                </td><td green>YES   </td><td   red>NO   </td><td green>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=3>WYSIWYG  Interface            </td><td   red>NO    </td><td green>YES  </td><td green>YES  </td><td green>YES  </td> </tr>
-<tr> <td colspan=3>Quick edit interface          </td><td green>YES   </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
-<tr> <td colspan=10>
-<div style="text-align: left;">
-  <b>*1</b>  But a million times less usable than those in SPB<br/>
-</div>
-     </td>
+<tr> <th colspan=3>                              </th><th> ___S.P.B.___         </th><th>Evernotes  </th><th>WordPress<sup>*3</sup></th><th>PowerPoint </th> </tr>
+<tr> <td colspan=3>Information belongs to ...    </td><td green>YOU             </td><td   red>app  </td><td   red>app  </td><td   red>app  </td> </tr>
+<tr> <td colspan=3>Web Friendly                  </td><td green>YES             </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Standard/Non propietary format</td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Zettlekasten friendly         </td><td green>YES             </td><td green>YES  </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Needs a non-standard DDBB     </td><td green>NO<sup>*1</sup> </td><td   red>YES  </td><td   red>YES  </td><td green>NO   </td> </tr>
+<tr> <td colspan=3>Needs server maintenance      </td><td green>NO   </td><td green>NO   </td><td   red>YES  </td><td green>NO   </td> </tr>
+<tr> <td colspan=3>git friendly (advanced distributed team collaboration and version control)
+                                                 </td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>works Offline                 </td><td green>YES             </td><td green>YES  </td><td   red>NO   </td><td green>YES  </td> </tr>
+<tr> <td colspan=3>Search by text                </td><td green>YES             </td><td green>YES  </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Search by (N-dimensional) topics
+                                                 </td><td green>YES             </td><td green>YES  </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Search by unique-id           </td><td green>YES             </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Search by text and topic      </td><td green>YES             </td><td green>YES? </td><td green>YES? </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Search speed                  </td><td green>FAST<sup>*1</sup></td><td green>FAST </td><td   red>SLOW </td><td   red>N/A  </td> </tr>
+<tr> <td colspan=3>Save search as bookmark       </td><td green>YES             </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Proximity map                 </td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Fast preview                  </td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td green>YES  </td> </tr>
+<tr> <td colspan=3>e-commerce/SEO plugins        </td><td   red>NO              </td><td   red>NO   </td><td green>YES  </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Intranet/Public Web           </td><td green>INTRA           </td><td green>INTRA</td><td green>PUBLIC</td><td   red>NONE </td> </tr>
+<tr> <td colspan=3>Zoom in/out Map view          </td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Print to  book                </td><td green>YES             </td><td   red>NO   </td><td green>YES? </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>Print sub-book                </td><td green>YES             </td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr> <td colspan=3>WYSIWYG  Interface            </td><td   red>NO              </td><td green>YES  </td><td green>YES  </td><td green>YES  </td> </tr>
+<tr> <td colspan=3>Quick edit interface          </td><td green>YES<sup>*2</sup></td><td   red>NO   </td><td   red>NO   </td><td   red>NO   </td> </tr>
+<tr>
+  <td colspan=7>
+    <div style="text-align: left;">
+      <b>*1</b> Your HTML file is your database. Content is indexed 
+                and classified upon page load in real-time by the web browser 
+                Javascript engine.<hr/>
+      <b>*2</b> Using your favourite HTML/text editor with support for macros, templates, auto-completion.<hr/>
+      <b>*3</b> Similar results apply to other CMS like Confluence or SharePoint.<hr/>
+      <b>*4</b> Modern web browsers load, index and classify a full book or site
+                faster than the time it takes to load a single article from a
+                remote CMS. This is due to the bottleneck in CMS central database
+                when different users search for content in parallel saturating the
+                resources.  With the SPB approach, no pressure is put on any
+                central database. All search is run in parallel on each client.
+                <hr/>
+    </div>
+   </td>
 </tr>
 </table>
 <br/>
@@ -123,8 +139,8 @@ th, td { width: 10em; max-width: 10em; vertical-align: middle; padding: 0.1em; f
   <p>
      HTML formats allows also to share the information as e-mail or chat attachments,
     or integrate into distributed (high-tolerant to hardware&amp;network failures)
-    version control systems  like Git and collaborative distributed work  Evernotes
-    doesn't.  <b>This is not possible with propieratry tools/formats</b>.
+    version control systems like Git for collaborative, distributed and offline work.<br/>
+    <b>This is not possible with propieratry tools/formats</b>.
   </p>
   <br/>
   <p>
@@ -277,16 +293,16 @@ th, td { width: 10em; max-width: 10em; vertical-align: middle; padding: 0.1em; f
    It's used by all major software companies (Google, Microsoft, IBM, Amazon, ...) 
    to track their most valuable assets, source-code. <br/>
      Most probably you are reading this page in github, a git hosting service frequently
-   used to track documentation.
+   used to track code ... and documentation.
 
    <div style="margin:1em 0 0 2em; outline: 1px solid grey; padding: 1em;">
      <b>Author's Personal note</b>: I still have nightmares with a old project 
    where the scrum "master" liked to play with JIRA customizing it in a millions
-   of non-standard ways that only he was aware of using magic (and useless) 
+   of non-standard ways that only he was aware of, using magic (and useless) 
    plugins.<br/>
      Worst at all, the system was constantly down or irresponsive. And <b>this
    complex structure and buggy solution was used to update just about 2-3 tickets
-   per week per user on average</b>. <br/>
+   per-week per-user on average</b>. <br/>
    </div>
    <br/>
    <br/>
