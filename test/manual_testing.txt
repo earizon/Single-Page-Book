@@ -1,0 +1,11 @@
+• Check                   http://127.0.0.1:8001/SPB/README.html                (SPB introduction)
+        https://singlepagebookproject.github.io/SPB/README.html
+
+• Check https://singlepagebookproject.github.io/SPB/index.html                 (Comparative)
+                          http://127.0.0.1:8001/SPB/index.html   
+
+• Check https://singlepagebookproject.github.io/SPB/demo_features.html         (demo01)
+                          http://127.0.0.1:8001/SPB/demo_features.html
+
+• Check https://singlepagebookproject.github.io/SPB/demo_project_tracker.html  (demo02)
+                          http://127.0.0.1:8001/SPB/demo_project_tracker.html
