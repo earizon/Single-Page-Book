@@ -1,5 +1,6 @@
 import { preLoad , postLoad } from './custom.js';
 
+// TODO:(0) put document.getElementById("zoomDiv") is const var. 
 const SF = {  /* search Form */
   searchFormDOM : window,
   searchForm_labelsDOM : window,
@@ -33,8 +34,8 @@ console.log(" @ma " + SF.regexInputTimer)
           div.classList.add("noprint")
     document.body.insertBefore(div,document.body.children[0])
     let html = ''
-      + ' <div id="divClose">✕ (close)</div>' 
-      + ' <div id="unhide" hidden >show all</div>'
+      + ' <div id="divClose1">✕</div>' 
+      + ' <div id="unhide" hidden >&nbsp;show all&nbsp;</div>'
       + '  <div id="divRegexForm">'
       + '  <input id="inputQuery"  type="text" placeholder="(regex)search"  />'
       + '  <div   id="matchNumber" ></div>'
@@ -58,12 +59,12 @@ console.log(" @ma " + SF.regexInputTimer)
         html += "(No topics found).<br/>\n"
       }
       div.innerHTML = html;
-      document.getElementById("divClose").addEventListener("click", SF.hideSearchForm);
+      document.getElementById("divClose1").addEventListener("click", SF.hideSearchForm);
       document.getElementById("unhide"        ).addEventListener("click", function () { 
           SE.resetTextFoundAttr(true);
           this.setAttribute("hidden","true"); 
       })
-    
+
       if (Object.keys(LM.labelMap).length > 0) {
         document.getElementById("searchAndMode").addEventListener("change",  SF.switchANDORSearch )
       }
@@ -144,7 +145,8 @@ const ZW = { /* ZOOM Window */
         dom1.setAttribute("id", "zoomDiv")
     dom1.innerHTML = ""
        + "<div id='zoomDivControls' style='margin-bottom:0.5rem'>" 
-       + " <div id='divClose'>✕ (close)</div>" 
+       + " <div id='divClose2'>✕ </div>" 
+       + ' <pre id="switchMaximize" >╔╗</pre>'
        + " <div id='historyBackFor' style='display:inline; '>"
        +    "<span id='GoBack'>←</span>&nbsp;"
        +    "<span id='GoForw'>→</span>"
@@ -159,7 +161,7 @@ const ZW = { /* ZOOM Window */
        + "<div id='zoomHTMLContent'/>"
     ZW.dom = dom1
     document.body.insertBefore(dom1,document.body.children[0])
-    document.getElementById("divClose").addEventListener("click", ZW.doCloseZoom);
+    document.getElementById("divClose2").addEventListener("click", ZW.doCloseZoom);
     document.getElementById("GoBack" ).addEventListener("click", NAV.goBack);
     document.getElementById("GoForw" ).addEventListener("click", NAV.goForward);
     ZW.textSizeSlider = document.getElementById("textSizeSlider" )
@@ -169,6 +171,11 @@ const ZW = { /* ZOOM Window */
            querySelector("*[zoom]").style.fontSize=""+(ZW.textSizeSlider.value/100.)+"rem"
         }
     );
+    document.getElementById("switchMaximize" ).addEventListener("click", function () { 
+       const state = document.getElementById("zoomDiv").getAttribute("maximized") 
+       document.getElementById("zoomDiv").setAttribute("maximized", state=="true"?"false":"true")
+    })
+ 
     document.getElementById("butSwitchLectureMode" )
        .addEventListener("click", ZW.switchLectureMode);
     ZW.updateButtonSwitchLectureMode()
