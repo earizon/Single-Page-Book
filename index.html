@@ -35,6 +35,16 @@ tr { outline: 1px solid black; }
   th, td { font-size: 12px; }
 }
 </style>
+
+<script>
+function onPageLoaded() {
+  const html = '' 
+      + '<image style="height:0; width:0; size:0;" '
+      + ' src="http://www.oficina24x7.com/visited/'+escape(document.location)+'" ></image>'
+  document.getElementById("afterEndMark").insertAdjacentHTML('afterend', html)
+}
+window.addEventListener('load', onPageLoaded )
+</script>
 </head>
 <body>
 <h1 style="text-align:center">SPB compared</h1>
@@ -308,5 +318,6 @@ tr { outline: 1px solid black; }
    <br/>
 </li>
 </ul>
+<span id="afterEndMark"></span>
 </body>
 </html>
