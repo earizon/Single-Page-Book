@@ -13,9 +13,8 @@ h2 { font-size: 1.1em; }
 body {
   font-family: 'Muli',sans-serif;
   font-size: 20px;
-  max-width: 90em;
-  margin-left:3%;
-  padding-left:2rem;
+  max-width: 50em;
+  padding-left:1rem;
   padding-right:1rem;
   padding-top:1rem;
   box-shadow: -10px 0px 10px 10px #aaaaaa; 
@@ -29,9 +28,6 @@ th, td { witdh: content-max; vertical-align: middle; padding: 0.1em; font-size:0
 tr { outline: 1px solid black; }
 
 @media (hover:none), (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
-  body { 
-    font-size: 24px;
-  }
   th, td { font-size: 12px; }
 }
 </style>
@@ -47,7 +43,11 @@ window.addEventListener('load', onPageLoaded )
 </script>
 </head>
 <body>
-<h1 style="text-align:center">SPB compared</h1>
+
+<div style="text-align:center">
+    <img src="./background.jpg" style="max-width:90%" /><br/>
+  <h1 >SPB compared</h1>
+</div>
 <div id="table_comparative_container">
 <span style="font-size:0.7em">
     (For a quick introduction to the SPB project read <a href="./README.html" target="_blank">[this document]</a>).<br/>

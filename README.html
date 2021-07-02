@@ -12,10 +12,6 @@ body {
   padding-top:1rem;
   box-shadow: -10px 0px 10px 10px #aaaaaa; 
 }
-#bckImage {
-    position: absolute;
-    opacity: 0.3; 
-}
 *[green] {background-color: #AFA; text-align:center; }
 *[red]   {background-color: #FAA; text-align:center; }
 td { width: 10em; }
@@ -32,7 +28,10 @@ window.addEventListener('load', onPageLoaded )
 </script>
 </head>
 <body>
-<img src="./background.jpg"  />
+<div style="text-align:center">
+    <img src="./background.jpg" style="max-width:90%" /><br/>
+</div>
+
 <h1>About SPB </h1>
 <ul>
     <li>SPB stands for Single Page Book. It aims at unifying books,
@@ -108,15 +107,15 @@ window.addEventListener('load', onPageLoaded )
        and install python 3. Then from the terminal (Linux/Mac) or the command
        prompt (Windows) execute next 3 commands and press Enter key( ⏎ ) to confirm.
        <pre>
-Command to execute:                             Explanation
-C:\users\myUser > mkdir project01⏎              ← [m]a[k]e (or create) new [dir]ectory
-                                                where the page will be stored
+Command to execute:                          Explanation
+C:\users\myUser > mkdir project01⏎     ←···· [m]a[k]e (or create) new [dir]ectory
+                                             where the page will be stored
                                             
-C:\users\myUser > cd    project01⏎             ← [c]hange [d]irectory
+C:\users\myUser > cd    project01⏎     ←···· [c]hange [d]irectory
 
-C:\users\myUser > python3 -m http.server⏎      ← Execute <b>safe</b> web server pointing
-                                                (only our computer will be able to
-                                                 access the content server)
+C:\users\myUser > python3 -m http.server⏎  ← Execute <b>safe</b> web server pointing
+                                             (only our computer will be able to
+                                              access the content server)
        </pre>
     </li>
     <li>Copy next files to the directory where pages will be placed:
@@ -134,8 +133,56 @@ C:\users\myUser > python3 -m http.server⏎      ← Execute <b>safe</b> web ser
         <b>"custom.js"</b> allows advanced customization. Just leave it next to the other files
         and forget.
     </li>
+    <li>Point your browser to <a href="http://localhost:8000" target="_new">http://localhost:8000</a> and
+        click in you renamed template html file.<br/>
+        Note that <b>localhost is an special safe and private address</b> pointing to your local computer.<br/>
+        Nobody outside your computer can access it.<br/> 
+        More info <a href="https://en.wikipedia.org/wiki/Localhost" target="_new">[here]</a>.
+    </li>
+    <li>Congratulations! You are done. Now it's time to add notes by just adding some html blocks 
+        tagged with <code>zoom</code> and <code>labels</code> attributes.<br/>
+          Reload your web page to see the results. Play around until you feel confortable 
+        and <b>get ready to take control of your information Forever!!!</b>.<br/>
+    </li>
 </ol>
 
+<h1>Next steps</h1>
+<ul>
+    <li>At some point you may be interested in sharing you information with your team or make it
+        public. If that's the case you can just upload your files to any web hosting provider.<br/>
+        Or you can start your server with the option <code>--bind 0.0.0.0</code> like:
+<pre>
+C:\users\myUser > python3 -m http.server --bind 0.0.0.0
+</pre>
+       Now your local web server is accesible to your local (WiFi, Ethernet or VPN) network 
+       through the local IP of your PC but nobody outside in the "World <s>Wide</s>Wild Web" can
+       reach it.<br/>
+    </li>
+    <li>It could be the case that you need to collaborate with people and take 
+        control of even the smallest changes or you need to apply some workflow 
+        before considering the documentation valid or rollback latest changes, or
+        create different versions of the content....<br/>
+         Them it is time for you to learn Git. It could be a little bit 
+        scaring to get used to Git for the first time and the step learning
+        curve is relatively high (about 5-15 days) but the time spent is worth
+        the effort if you plan to take control of your information for the
+        rest of your life.<br/>
+          Git will surprise you with all its "goodies". In fact Git is the
+        tool used by the "big ones" of the Internet (Google, Apple, Microsoft,
+        AWS, ...). It allows to work offline and merge change among team groups
+        with easy, see changes from current version to a previous one, alert 
+        about conflicts when two different users edit the same information in
+        parallel and helps to fix them with easy. It lets you come back to 
+        past version without loosing the latest changes, create different 
+        versions (branches) of the same document and merge those versions 
+        later on (or just discard one of them, or part of one of them).
+        <br/>
+         And if Git scares you or you don't have time to learn it, don't worry!. 
+        You can still deal with your documents as standard text files. Copy to 
+        a backup or version folder, send as e-mail attachments, or zip with a 
+        password. Leave Git appart until you have time to learn it.
+    </li>
+</ul>
 
 <h1>Features</h1>
 <ul>
@@ -143,7 +190,7 @@ C:\users\myUser > python3 -m http.server⏎      ← Execute <b>safe</b> web ser
     <li>✓ Navigate notes "a la Google maps" by zooming in/out, or 
         "a la Zettlekasten way" by showing related notes by topic and/or direct-link.
     </li>
-    <li>✓ distributed team workflows supported through Git
+    
          (rollbacks, pull requests, versioning, branching, ...)
     </li>
     <li>✓ Print to paper support:
