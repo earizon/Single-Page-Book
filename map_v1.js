@@ -13,12 +13,17 @@ const SF = {  /* search Form */
       true : "Note contains ALL selected topics",
       false: "Note contains ANY selected topic"
   },
+  copyLabels : function() {
+    var text = "";
+    LM.labelMap_key_list.forEach( label_i => { text += label_i + "\n" } )
+    alert("select and copy:\n\n" + text)
+  },
   switchANDORSearch : function() {
     SF.labelANDMode=!SF.labelANDMode  
     document.getElementById("idLabelSearchAndMode").innerHTML = SF.labelAndOrText[SF.labelANDMode]
+    SE.executeSearch()
   },
   onRegexInputChanged : function () {
-console.log(" @ma " + SF.regexInputTimer)
         if (SF.regexInputTimer !== null) {
            clearTimeout(SF.regexInputTimer)
            SF.regexInputTimer = null
@@ -26,7 +31,6 @@ console.log(" @ma " + SF.regexInputTimer)
         SF.regexQuery = this.value
         SF.regexInputTimer = setTimeout(
              SE.executeSearch, 1000)
-console.log(" @ma " + SF.regexInputTimer)
     },
   renderSearchForm : function() {
     const div = document.createElement('div');
@@ -48,7 +52,8 @@ console.log(" @ma " + SF.regexInputTimer)
       + '  <label for="fullWord">Full Word</label>'
       + '  </div>'
       + '  <br/>'
-      if (Object.keys(LM.labelMap).length > 0) {
+      + '  <div id="copyLabels">Copy Labels</div>'
+      if (LM.DDBB.labelMap_key_list.length > 0) {
           html += 
            '<input id="searchAndMode" type="checkbox">'
         +  '<span id="idLabelSearchAndMode" mono></span>'
@@ -64,8 +69,8 @@ console.log(" @ma " + SF.regexInputTimer)
           SE.resetTextFoundAttr(true);
           this.setAttribute("hidden","true"); 
       })
-
-      if (Object.keys(LM.labelMap).length > 0) {
+      document.getElementById("copyLabels").addEventListener("click",  SF.copyLabels )
+      if (LM.DDBB.labelMap_key_list.length > 0) {
         document.getElementById("searchAndMode").addEventListener("change",  SF.switchANDORSearch )
       }
       const swithSingleLineDom = document.getElementById("singleLineOnly")
@@ -84,17 +89,6 @@ console.log(" @ma " + SF.regexInputTimer)
   },
   regexInputTimer : null,
   
-  compareTopic: function (a , b) {
-    const idxA = a.indexOf(".")
-    const idxB = b.indexOf(".")
-    let result = 0
-         if (idxA<idxB) result = -1
-    else if (idxA>idxB) result =  1
-    else if ( a < b ) result = -1
-    else if ( a > b ) result =  1
-console.log(a,b, idxA, idxB, result)
-    return result
-  },
   showSearchForm : function() {
     SF.searchFormDOM.style.display="block";
     document.getElementById("inputQuery").value = SF.regexQuery
@@ -103,21 +97,23 @@ console.log(a,b, idxA, idxB, result)
     document.getElementById("caseSensitive" ).checked = SF.matchCaseMode
     document.getElementById("fullWord" ).checked = SF.fullWordMode
     document.getElementById("idLabelSearchAndMode" ).innerHTML = SF.labelAndOrText[SF.labelANDMode]
- 
     const openDiv = '<div class="labelBlock">'
-    var htmlLabels = openDiv, currentPrefix=""
-    Object.keys(LM.labelMap).map((l)=>l.toLowerCase()).sort( SF.compareTopic )
-       .forEach(label_i => {
-        if (label_i.indexOf(".")>0) {
-            const prefixI = label_i.substr(0,label_i.indexOf("."))
-            if (currentPrefix != prefixI) {
-              htmlLabels += "</div>"+openDiv + "<div class='labelBlockTitle'>"+ prefixI +":</div>" 
-              currentPrefix = prefixI
-            }
-        }
-        htmlLabels += LM.renderLabel(label_i)
-    })
+    var htmlLabels = openDiv
+    Object.keys(LM.DDBB.topicTree).sort()
+    .filter  ( root_topic => { return LM.DDBB.topicTree[root_topic].length == 1 } )
+    .forEach ( root_topic => { htmlLabels += LM.renderLabel(root_topic, false)} );
     htmlLabels += "</div>"
+  
+    Object.keys(LM.DDBB.topicTree).sort()
+      .filter  ( root_topic => { return LM.DDBB.topicTree[root_topic].length != 1 } )
+      .forEach ( root_topic      => {
+          const root_topic_prefix = root_topic.replace(".*", "")
+          htmlLabels += openDiv + "<div class='labelBlockTitle'>"+ root_topic_prefix +":</div>" 
+          LM.DDBB.topicTree[root_topic].sort().forEach( topic => {
+              htmlLabels += LM.renderLabel(topic, true)
+          })
+          htmlLabels += "</div>"
+    });
     SF.searchForm_labelsDOM.innerHTML = htmlLabels;
     document.querySelectorAll('.labelButton').forEach(
       domElement => {
@@ -144,7 +140,7 @@ const ZW = { /* ZOOM Window */
     const dom1 = document.createElement('div');
         dom1.setAttribute("id", "zoomDiv")
     dom1.innerHTML = ""
-       + "<div id='zoomDivControls' style='margin-bottom:0.5rem'>" 
+       + "<div class='noprint' id='zoomDivControls' style='margin-bottom:0.5rem'>" 
        + " <div id='divClose2'>✕ </div>" 
        + ' <pre id="switchMaximize" >╔╗</pre>'
        + " <div id='historyBackFor' style='display:inline; '>"
@@ -156,8 +152,8 @@ const ZW = { /* ZOOM Window */
        + ' <div id="butSwitchLectureMode" >?</div>'
        + ' <input id="textSizeSlider" type="range" '
        + '   style="width:100px" value="100" min="30" max="250">'
-       + " <div id='divElementLabels' class='noprint'></div>" 
        + "</div>"
+       + " <div id='divElementLabels' class='noprint'></div>" 
        + "<div id='zoomHTMLContent'/>"
     ZW.dom = dom1
     document.body.insertBefore(dom1,document.body.children[0])
@@ -210,7 +206,7 @@ const ZW = { /* ZOOM Window */
         .from(
           new Set(e.attributes.labels.value.split(",")))
         .filter(e => !!e)
-        .forEach(label_i => { sLabels += LM.renderLabel(label_i) })
+        .forEach(label_i => { sLabels += LM.renderLabel(label_i, true ) })
     }
     document.getElementById("divElementLabels").innerHTML = sLabels;
     const zoomHTML = document.getElementById("zoomHTMLContent")
@@ -286,11 +282,8 @@ const ZC = { /* map zoom Control */
       ZC.cssRules[ZC.idxZoomRule  ].style['font-size']=0.0001 + 'rem'
     } else /* change normal text size*/ {
       const  delta0 = (ZC.slider.value - switchElementsOn)
-console.log(delta0)
       const  delta1 = Math.pow(delta0, 1.3)
-console.log(delta1)
       const newFontSize = delta1/1000.
-console.log(newFontSize)
       ZC.cssRules[ZC.idxZoomRule  ].style['font-size']=newFontSize + 'rem'
     }
  },
@@ -314,63 +307,145 @@ const NAV = { // Navigation
 }
 
 const LM = { // Lavel management
-  labelMapSelected : { /* label : isSelected true|false */ },
-  labelMap : { /* label : dom_list*/ },
+  state : {
+      labelMapSelected : { /* label : isSelected true|false */ } 
+  },
+  DDBB : { // immutable once initialized. Convention: Use Upper Case for Immutable Objects
+    flatMap : { /* label : dom_list*/ }, // TODO:(0) rename topic2DOMList
+    topicTree : { /* topic_root_label : child_topics */ }, // TODO:(0) Rename to topicTree /* depth 1 */
+    labelMap_key_list : [], // TODO:(0) rename to labelMap_key_list ordered
+    countPerLabelStat : {}, 
+    endInitialization : function (inputLabelMap) {
+    // STEP 1: create flatMap topic -> [dom_element1, dom_element2, ... ]
+    LM.DDBB.flatMap = inputLabelMap
 
+    // STEP 2: create topic list ordered alphabetically
+    const topic_list = Object.keys(inputLabelMap).sort()
+    topic_list.forEach( (topic) => { 
+        LM.DDBB.countPerLabelStat[topic] = inputLabelMap[topic].length } 
+    )
+
+
+    // STEP 3.1: create topic tree parent (depth 1)
+    const tree_root_list = topic_list.filter( (topic) => topic.indexOf('.*') == topic.length-2 )
+
+    /* STEP 3.2: Create topic tree children (depth 2)
+     * 
+     * "topic1.*" : [ "topic1.*" ]
+     * "topic2.*" : [ "topic2.*", "topic2.sub1", "topic2.sub2, ... ]
+     * "topic3.*" : ...
+     */
+     tree_root_list.forEach( (root_topic) => {
+       const prefix = root_topic.replace(".*","")
+       const child_topic_content = []
+       topic_list.forEach( (topic) => {
+         if ( topic.indexOf(prefix) >= 0 ) {
+           child_topic_content.push(topic)
+         }
+       })
+       if (child_topic_content.length == 0) {
+           throw new Error("at least root_topic must match its prefix")
+       }
+       LM.DDBB.topicTree[root_topic]  = child_topic_content
+     })
+     LM.DDBB.labelMap_key_list = topic_list 
+     window.LM = LM // deleteme
+    }
+  },
   isAnyLabelSelected : function() {
-    return Object.keys(LM.labelMapSelected).length > 0
+    return Object.keys(LM.state.labelMapSelected).length > 0
+  },
+  setLabelSelectedOnOff : function( labelKey, bOnOff ) {
+    if (bOnOff) { 
+      LM.state.labelMapSelected[labelKey] = bOnOff
+    } else {
+      delete LM.state.labelMapSelected[labelKey]
+    }
+  },
+  refreshLabelsUI : function() {
+    document.querySelectorAll('.labelButton').forEach( e => {
+          e.addEventListener('click', LM.onLabelClicked) // @ma
+          if (!e.attributes) {
+            e.attributes = { selected : { value : "false" } }
+          }
+          const labelKey = e.getAttribute("value")
+          const isSelected = !! LM.state.labelMapSelected[labelKey]
+          e.attributes.selected.value = ""+isSelected
+        }
+    )
   },
   onLabelClicked : function (e) {
     const dom = e.target
     const labelKey = dom.value ? dom.value : dom.getAttribute("value")
-
-    if (!dom.attributes) {
+    if (!dom.attributes) { // TODO:(0) Use internal DDBB (vs storing in DOM) @ma
          dom.attributes = { selected : { value : "false" } }
     }
     if (dom.attributes.selected.value == "false") {
-        dom.attributes.selected.value = "true"
-        LM.labelMapSelected[labelKey] = true
+        LM.setLabelSelectedOnOff( labelKey, true)
     } else {
-        dom.attributes.selected.value = "false"
-        delete LM.labelMapSelected[labelKey]
+        LM.setLabelSelectedOnOff( labelKey, false)
     }
     if (LM.isAnyLabelSelected()){
       document.getElementById("idLabelsFilter").setAttribute("active","true"); 
     } else {
       document.getElementById("idLabelsFilter").removeAttribute("active"); 
     }
+    LM.refreshLabelsUI()
     SE.executeSearch()
   },
-  renderLabel : function(sLabelKey) {
-    sLabelKey = sLabelKey.toLowerCase()
-    var  sLabel = sLabelKey
-    const idxPrefix = sLabel.indexOf(".")+1
-    if (idxPrefix>0) { sLabel = sLabel.substr(idxPrefix) }
-    let cssAtribute    = (sLabelKey.indexOf("todo")>=0) ? " red"  : ""
-    return "<div "+cssAtribute+" class='labelButton' selected="+(!!LM.labelMapSelected[sLabelKey])+
-           " type='button' value='"+sLabelKey+"' />"+sLabel+"</div><span labelcount>"+LM.labelMap[sLabelKey].length+"</span>" ;
+  renderLabel : function(topic, showAsterisk) {
+    const sTopic = showAsterisk ? topic : topic.replace(".*","")
+    let cssAtribute    = (topic.indexOf("todo")>=0) ? " red"  : ""
+    return "<div "+cssAtribute+" class='labelButton' selected="+(!!LM.state.labelMapSelected[topic])+ 
+           " type='button' value='"+topic+"' />"+sTopic+"</div><span labelcount>"+LM.DDBB.countPerLabelStat[topic]+"</span>" ;
   },
-  getDomListForLabel: function (labelKey) {
-      if (!!!LM.labelMap[labelKey]) return [];
-      else return LM.labelMap[labelKey];
+  getDomListForLabelPrefix: function (labelKey) {
+      const matchingKeys = LM.DDBB.labelMap_key_list
+            .filter((k) => k.startsWith(labelKey.replace(".*","")) )
+      var result = []
+      for (let idx=0; idx<matchingKeys.length; idx++) {
+          const key = matchingKeys[idx]
+          if (!!!LM.DDBB.flatMap[key]) continue
+          result = result.union( LM.DDBB.flatMap[key] )
+      }
+      return result
   },
   labelMapSelectedToCSV: function() {
-    return Object.keys(LM.labelMapSelected).sort().join(",")
+    return Object.keys(LM.state.labelMapSelected).sort().join(",")
   },
   createLabelIndex : function () {
     const labeled_dom_l = document.querySelectorAll('*[labels]');
-    for (let idx1 in labeled_dom_l) {
+    const inputDDBB = { /* topic: related_node_list */ }
+    // STEP 1: Clean topics  in html label attributes
+    const final_dom_l = []
+    for (let idx1 in labeled_dom_l ) {
       const node = labeled_dom_l[idx1]
-      if (!node.getAttribute    ) continue
-      const csvAttributes = node.getAttribute("labels")
-      if (!csvAttributes || !csvAttributes.trim()) continue;
+      if (!!!node.getAttribute ) continue
+      const input_labels_csvAttributes = node.getAttribute("labels").trim().replace(",,",",")
+      if (!!!input_labels_csvAttributes || input_labels_csvAttributes == "") continue;
+      if (input_labels_csvAttributes == ",") continue;
+      final_dom_l.push(node) // final_dom_l is of type Array (vs DomList in labeled_dom_l)
+      const inputTopicList = input_labels_csvAttributes.split(",")
+      const effectiveTopicList = []
+      inputTopicList.forEach(inputTopic => {
+          if (inputTopic.trim()=="") return
+          effectiveTopicList.push( (inputTopic.indexOf(".") >= 0) ? inputTopic : inputTopic+".*" )
+      })
+      node.setAttribute("labels",effectiveTopicList.join())
+    }
+    // STEP 2: Fill topic DDBB from label input
+    for (let idx2 = 0; idx2<final_dom_l.length; idx2++) {
+      const node = final_dom_l[idx2]
+      if (!!!node.getAttribute )  { debugger }
+      const input_labels_csvAttributes = node.getAttribute("labels")
+      const effectiveTopicList = input_labels_csvAttributes.split(",")
       var labelCount = 0
-      csvAttributes.split(",").forEach( labelKey => {
+      effectiveTopicList.forEach( labelKey => {
           if (!!! labelKey) return
           labelKey = labelKey.toLowerCase()
-          let list = LM.getDomListForLabel(labelKey)
+          let list = (inputDDBB[labelKey]) ?  inputDDBB[labelKey] : []
               list.push(node)
-          LM.labelMap[labelKey] = list
+          inputDDBB[labelKey] = list
           labelCount++
       })
       if (labelCount>0) {
@@ -380,6 +455,7 @@ const LM = { // Lavel management
         node.insertBefore(countEl,node.children[0])
       }
     }
+    LM.DDBB.endInitialization(inputDDBB)
   }
 }
 
@@ -515,14 +591,14 @@ const MB = { // Menu Bar
   renderMenuBar : function (){
     const searchDiv = document.createElement('div');
         searchDiv.setAttribute("id", "upper_bar")
+        searchDiv.classList.add("noprint")
         searchDiv.innerHTML = ''
-     + '<img id="idLabelsFilter" class="noprint" src="/labelIcon.svg"  '
-     +   ' onerror="src = \'https://singlepagebookproject.github.io/SPB/labelIcon.svg\';" />'
+     + '<img id="idLabelsFilter" class="noprint" src="/labelIcon.svg" />'
      + '<a href="../help.html" class="noprint" style="cursor:help" target="_blank" >❓</a>'
      + '<span blue id="printButton">Print</span>'
      + '<span id="loupe"  blue>🔍︎</span>'
      + '<input id="zoomSlider" type="range" '
-     + '  style="width:100px" value="70.0" min="30.0" max="190">'
+     + '  style="width:100px" value="70.0" min="30.0" max="250">'
      + '<br/>'
     document.body.insertBefore(searchDiv,document.body.children[0])
     document.getElementById("idLabelsFilter").addEventListener("click", SF.showSearchForm)
@@ -694,12 +770,12 @@ const SE = { // (S)earch (E)ngine
     })
     var innerZoom_l = []
     if (LM.isAnyLabelSelected()) {
-        let label_l=Object.keys(LM.labelMapSelected) // @ma
-        innerZoom_l = LM.getDomListForLabel(label_l[0]);
+        let label_l=Object.keys(LM.state.labelMapSelected)
+        innerZoom_l = LM.getDomListForLabelPrefix(label_l[0]);
         for (let idx=0; idx<label_l.length; idx++) {
             innerZoom_l = SF.labelANDMode 
-                ? innerZoom_l.intersection( LM.getDomListForLabel(label_l[idx]) )
-                : innerZoom_l.union       ( LM.getDomListForLabel(label_l[idx]) )
+                ? innerZoom_l.intersection( LM.getDomListForLabelPrefix(label_l[idx]) )
+                : innerZoom_l.union       ( LM.getDomListForLabelPrefix(label_l[idx]) )
         }
     } else {
         // By default search inside all zoomable elements
@@ -733,7 +809,11 @@ const SE = { // (S)earch (E)ngine
         ZW.doOpenZoom(lastElementFound);
     }
     let sMatchText = "<span red>no matches</span>"
-    if (numberOfMatches > 0) sMatchText = numberOfMatches + " found"
+    if (numberOfMatches > 0) {
+        sMatchText = numberOfMatches + " found"
+        document.getElementById("searchForm").setAttribute("resultFound","true")
+        setTimeout(()=>{ document.getElementById("searchForm").removeAttribute("resultFound") } , 4500 )
+    }
     document.getElementById("matchNumber").innerHTML = sMatchText
     unhideButton.removeAttribute("hidden","");
     return false // avoid event propagation

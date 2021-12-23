@@ -1,4 +1,9 @@
 @media only screen { /* desktop and mobile  (vs paper) MEDIA ONLY SCREEN START  {{{ */
+*[console]  {
+  background-color:black    !important;
+  color           :#AFA     !important;
+  line-height     :1.2em;
+}
 
 @font-face{
   font-family: 'source_code_pro';
@@ -50,12 +55,18 @@ body {
 
 
 #zoomDivControls {
-   position: fixed;
-   width: max-content;
+   width: 100%;
    border-bottom: 1px solid black;
+   position: fixed;
+}
+
+@keyframes searchFormTransparency {
+  from   { opacity: 0.9; }
+  50%    { opacity: 0.3; }
+  to     { opacity: 0.9; }
 }
 #searchForm  { 
-   position: sticky;
+   position: fixed;
    top: 2.8rem;
    z-Index:9;
    width:96%;
@@ -63,7 +74,15 @@ body {
    box-shadow: 0 0 10px black;
    background-color: #FFE;
    transition: width 1s;
+   opacity: 0.9;
+   max-height: 90%;
 }
+#searchForm[resultFound] {
+   animation-name     : searchFormTransparency;
+   animation-duration : 1.00s;
+   animation-delay    : 0.0s;
+}
+
 #searchAndMode { margin-bottom: 0.7em; }
 
 @keyframes zoomDivAnimation {
@@ -91,8 +110,10 @@ body {
 
 .lectureMode0 { }
 .lectureMode1 {
-   white-space: pre-wrap;
    line-height: 1.4em;
+}
+pre.lectureMode1 {
+   white-space: pre-wrap;
 }
 
 .lectureMode2 {
@@ -110,7 +131,13 @@ body {
 
 th, h1, h2, h3, h4 { font-family: sans-serif; }
 
-b { color: #0A9; font-weight:500; /* text-shadow: 0 0 0.1px; */ }
+b { 
+  color: #0A9;
+  font-weight:500;
+  text-decoration: underline; 
+  background-color: white;
+}
+
 *[zoom] {
   opacity:0.7;
   background-color:#EEEEEE; 
@@ -143,7 +170,7 @@ b { color: #0A9; font-weight:500; /* text-shadow: 0 0 0.1px; */ }
   transform: none; 
 }
 
-#zoomHTMLContent { margin-top: 5.0rem; }
+#zoomHTMLContent { }
 #zoomHTMLContent > * > *[xsmall] ,
 #zoomHTMLContent > * > *[title] {
   font-size: 1.5em;
@@ -238,7 +265,7 @@ td,th               {background-color:#FFFFFF; overflow: hidden; }
 table { width:100% border:0; margin: 0;}
 
            *[zoom] { min-height:0.4rem; cursor: cell; }
-         div[zoom] { white-space: pre; }
+/*       div[zoom] { white-space: pre; } */
 #zoomDiv > *[zoom] { border-top:0px   ; cursor: pointer; }
 
 hr {
@@ -281,6 +308,7 @@ hr {
   display: table-footer-group:
   text-align: right;
   vertical-align: top;
+  padding-top: 3.5rem;
 }
 
 .labelButton {
@@ -300,8 +328,10 @@ hr {
     background-color: black;
     color: white;
 }
+
+/* TODO:(qa) refactor styles for buttons */
 #divClose1, #divClose2, 
-#switchMaximize, #unhide, #butSwitchLectureMode, #textSizeSlider, #cellIDPanell {
+#switchMaximize, #unhide, #butSwitchLectureMode, #textSizeSlider, #cellIDPanell, #copyLabels {
     font-size:1.1rem;
     padding: 0.1rem  0.3rem 0.1rem 0.3rem;
     border-radius: 1rem;
@@ -311,10 +341,11 @@ hr {
     white-space: nowrap;
     cursor: context-menu;
 }
-#switchMaximize, #unhide, #butSwitchLectureMode, #textSizeSlider, #cellIDPanell {
+#switchMaximize, #unhide, #butSwitchLectureMode, #textSizeSlider, #cellIDPanell, #copyLabels {
     color:blue;
     border: 3px solid blue;
 }
+#copyLabels { float: right; }
 #divClose1, #divClose2 {
     color:grey;
     border: 3px solid black;
@@ -390,8 +421,12 @@ div[group]:empty, div[groupv]:empty {
    background: linear-gradient(to bottom, #FFF 33%, #AAA 100%);
 }
 *[group] {
-   display: inline-block; 
-   background: linear-gradient(to right, #FFF 33%, #DDD 100%);
+  display: inline-block; 
+  background: linear-gradient(to right, #FFF 33%, #DDD 100%);
+  background-image: url('/IT_notes/background.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
 /*   max-width: min-content; */
 }
 
@@ -450,17 +485,19 @@ span[labelcount] {
 .labelBlockTitle {
     display: inline-block;
     width: 10em;
-    border-bottom: 1px solid black;
-/*
-   margin: -0.4em 0 0.2em 0;
-   padding: 0 1em 0 0;
-   width: min-content;
-*/
+    text-align: right;
+}
+
+.labelPrefixGroup {
+    display: inline-block;
+    width: calc( 98% - 10em);
+    vertical-align: top;
+    border-bottom: 2px solid black;
 }
 
 } /* }}} MEDIA ONLY SCREEN END  */
 
-@media (hover:none), (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
+@media (hover:on-demand), (pointer  : coarse) { /* MOBILE devices */
 /* 
  * ^^^ REF: https://stackoverflow.com/questions/11387805/media-query-to-detect-if-device-is-touchscreen 
  **/
@@ -505,9 +542,7 @@ span[labelcount] {
     *[group]  { width: 95%; }
     *[groupv] { width: 45%; }
 
-    #searchForm  { 
-       max-height: 20rem;
-    }
+/*    #searchForm  { max-height: 20rem; } */
 }
 
 @media print { /* printed paper / "PDFs" */
@@ -543,7 +578,7 @@ span[labelcount] {
 
 *[gray]     { color:gray   !important; } 
 *[yellow]   { color:#DD0   !important; } 
-*[blue]     { color:blue   !important; } 
+*[blue]     { color:#559   !important; } 
 *[orange]   { color:#D09   !important; } 
 *[green]    { color:green  !important; } 
 *[brown]    { color:brown  !important; } 
