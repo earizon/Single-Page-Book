@@ -203,28 +203,49 @@ Bºsequential prioritization.                                         º
   - HHRR.delivery_note
 
 </pre>
-<pre zoom labels="doc_type.resource,">
-                      ┌─────────┬───────────┬──────────┬───────────────────────────┐
-                      │e-mail   │ Contact   │ Pending  │Notes                      │
-                      │         │ phone     │ Holidays │                           │
- ┌────────────────────┼─────────┼───────────┼──────────┼───────────────────────────┤
- │          Mark Twain│   X     │           │    10    │• bla bla bla              │
- │                    │         │           │          │                           │
- ├────────────────────┼─────────┼───────────┼──────────┼───────────────────────────┤
- │     Charles Dickens│         │    X      │    10    │• bla bla bla              │
- ├────────────────────┼─────────┼───────────┼──────────┼───────────────────────────┤
- │ Willian Shakespeare│         │           │    21    │• bla bla bla              │
- ├────────────────────┼─────────┼───────────┼──────────┼───────────────────────────┤
- │      Rene Descartes│         │           │     5    │• He has doubts about his  │
- │                    │         │           │          │  pending holidays.        │
- ├────────────────────┼─────────┼───────────┼──────────┼───────────────────────────┤
- │      J.R.R. Tolkien│         │           │     0    │• bla bla bla              │
- │                    │         │           │          │                           │
- └────────────────────┴─────────┴───────────┴──────────┴───────────────────────────┘
+<pre zoom labels="doc_type.resource,HHRR.who-is-who" id="who_is_who">
+<span title>Who Is Who</span>
 
-<span xsmall>Internal Bookmarks</span>
-• @[#myFavoriteTask]
+                                             ┌ Pending Holidays
+                      ┌─────────┬───────────┬│─┬──────────────────────┐
+                      │e-mail   │ Contact   │  │Notes                 │
+                      │         │ phone     │  │                      │
+ ┌────────────────────┼─────────┼───────────┼──┼──────────────────────┤
+ │          Mark Twain│   X     │           │10│• bla bla bla         │
+ │                    │         │           │  │                      │
+ ├────────────────────┼─────────┼───────────┼──┼──────────────────────┤
+ │     Charles Dickens│         │    X      │10│• bla bla bla         │
+ ├────────────────────┼─────────┼───────────┼──┼──────────────────────┤
+ │ Willian Shakespeare│         │           │21│• Preparing for next  │
+ │                    │         │           │21│  stage.              │
+ ├────────────────────┼─────────┼───────────┼──┼──────────────────────┤
+ │      Rene Descartes│         │           │ 5│• He has doubts about │
+ │                    │         │           │  │  pending holidays.   │
+ ├────────────────────┼─────────┼───────────┼──┼──────────────────────┤
+ │      J.R.R. Tolkien│         │           │ 0│• bla bla bla         │
+ │                    │         │           │  │                      │
+ └────────────────────┴─────────┴───────────┴──┴──────────────────────┘
+
+<span title>Recruitment</span>
+                       ┌ Check 1
+                       │  ┌ Check 2
+                       │  │  ┌ Check 3
+                      ┌│─┬│─┬│─┬─────────┬───────────────────────────┐
+                      │  │  │  │intervi. │Notes                      │
+                      │  │  │  │schedul. │                           │
+ ┌────────────────────┼──┼──┼──┼─────────┼───────────────────────────┤
+ │Miguel de Cervantes │OK│OK│OK│03/20/22 │• He is pending to scape   │
+ │                    │  │  │  │         │  from some prision in the │
+ │                    │  │  │  │         │  Ottoman Empire.          │
+ ├────────────────────┼──┼──┼──┼─────────┼───────────────────────────┤
+ │Évarist Galois      │OK│OK│OK│PENDING  │• His CV probes to have    │
+ │                    │  │  │  │         │  a nice group of skills.  │
+ └────────────────────┴──┴──┴──┴─────────┴───────────────────────────┘
+
+
+
 </pre>
+
 <pre zoom labels="doc_type.planning,assign_to.Dickens,assign_to.MarkTwain,assign_to.Shakespeare,assign_to.Tolkien,assign_to.Descartes,Work_Package.1,Work_Package.2,Work_Package.3,Work_Package.4">
 <span xsmall>Acronyms</span>
 • WP  : Work package
@@ -244,8 +265,6 @@ Bºsequential prioritization.                                         º
  │ WP 4 │         │           │     X      │    X      │    X     │
  └──────┴─────────┴───────────┴────────────┴───────────┴──────────┘
 
-<span xsmall>Internal Bookmarks</span>
-• @[#myFavoriteTask]
 </pre>
 </div>
 
@@ -386,7 +405,7 @@ $ºcal -y -mº
                                             
 </pre>
 
-<PRE zoom labels="doc_type.resource,state.TODO">
+<PRE zoom labels="doc_type.resource,HHRR.contacts,state.TODO">
 <span xsmall>All my Contacts</span>
  Contact10  +01123123123  Contact20  +01123123123  Contact30  +01123123123         Contact10  +01123123123  Contact20  +01123123123  Contact30  +01123123123
  Contact11  +01123123123  Contact21  +01123123123  Contact31  +01123123123         Contact11  +01123123123  Contact21  +01123123123  Contact31  +01123123123
